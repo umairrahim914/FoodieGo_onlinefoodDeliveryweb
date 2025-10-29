@@ -125,7 +125,7 @@ body{
     flex-direction: column;
     transition: .5s ease-in-out;
 }
-
+ 
 .top span{
     color: #fff;
     font-size: small;
@@ -139,7 +139,21 @@ body{
     color: #fff;
     margin-left: 5px;
 
+}
 
+#acc-span{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    font-size: 14px;
+    margin-top: 0px; 
+}
+
+#acc-span a{
+    font-weight: 500;
+    color: #fff;
+    margin-left: 5px;
 }
 
 
@@ -172,7 +186,7 @@ header{
     font-size: 15px;
     background: rgba(255,255,255,0.2);
     color: #fff;
-    height: 30px;
+    height: 38px;
     width: 100%;
     padding: 0 10px 0 45px;
     border: none;

@@ -112,6 +112,6 @@ body {
   font-weight: 600;
 }
 
-Sign-Up-link p a:hover {
+.Sign-Up-link p a:hover {
   text-decoration: underline;
 }
