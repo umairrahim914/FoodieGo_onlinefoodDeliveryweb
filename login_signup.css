@@ -101,7 +101,7 @@ body{
     justify-content: center;
     align-items: center;
     width: 512px;
-    height: 420px;
+    height: 600px;
     overflow: hidden; 
     padding: 20px 0;
     z-index: 2;
@@ -141,6 +141,7 @@ body{
 
 
 }
+
 
 header{
     color: #fff;
