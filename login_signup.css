@@ -141,20 +141,38 @@ body{
 
 }
 
-#acc-span{
+#reg-acc-span{
     position: relative;
+    left: 120px;
     display: flex;
     justify-content: center;
     color: #fff;
     font-size: 14px;
     margin-top: 0px; 
+    
 }
 
-#acc-span a{
+#reg-acc-span a{
     font-weight: 500;
     color: #fff;
     margin-left: 5px;
 }
+
+
+#login-acc-span{
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    font-size: 14px;
+}
+
+#login-acc-span a{
+    font-weight: 500;
+    color: #fff;
+    margin-left: 5px;
+
+}
+
 
 
 header{

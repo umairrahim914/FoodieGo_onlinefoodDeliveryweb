@@ -20,6 +20,7 @@
             <div class="nav-menu">
                 <ul>
                     <li><a href="#" class="link active">Register</a></li>
+                    <li><a href="#" class="link">Home</a></li>
                     <li><a href="#" class="link">About</a></li>
                     <li> <a href="#" class="link">Help</a></li>
                 </ul>
@@ -41,7 +42,6 @@
             <!-- login form -->
             <div class="login-container" id="login">
                 <div class="top">
-                    <span>Don't have an account? <a href="#" onclick="register()">Sign Up </a></span>
                     <header>Login</header>
                 </div>
 
@@ -67,6 +67,8 @@
                         <input type="checkbox" id="login-check">
                         <label for="login-check">Remember Me</label>
                     </div>
+
+                    <span id="login-acc-span">Don't have an account? <a href="#" onclick="register()">Sign Up </a></span>
 
                     <div class="two">
                         <label><a href="#">Forget Password?</a></label>
@@ -122,11 +124,7 @@
                     </div>
 
                     <div class="two-col">
-                        <div class="one">
-                            <input type="checkbox" id="register-check">
-                            <label for="register-check">Remember Me</label>
-                        </div>
-                        <span id="acc-span">Already have an account? <a href="#" onclick="login()">Login </a></span>
+                        <span id="reg-acc-span">Already have an account? <a href="#" onclick="login()">Login </a></span>
                         <div class="two">
                             <label><a href="#">Terms & Conditions</a></label>
                         </div>
