@@ -72,6 +72,11 @@ body {
     padding: 2em;
 }
 
+.featured-recipes h2,h3{
+    color:white;
+    font-weight: bold;
+}
+
 .recipe-cards {
     display: flex;
     flex-wrap: wrap;
