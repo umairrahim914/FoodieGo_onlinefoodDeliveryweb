@@ -7,6 +7,14 @@
     box-sizing: border-box;
     font-family: "Roboto Condensed", sans-serif;
 }
+
+:root{
+    --lead: #212121;
+    --gold-finger: #F2BD12;
+    --eye-ball: #FFFDF7;
+    --hint-yellow: #FCF1CC;
+    --pure-white: #FFF;
+}
 a{
     font-size: 1.1rem;
     text-decoration: none;
@@ -50,7 +58,7 @@ img{
     max-width: 100%;
     height:auto;
     margin: auto;
-    /* display: block; */
+    display: block;
 }
 .logo{
     font-size: 2rem;
@@ -81,7 +89,7 @@ img{
     width: 20px;
     aspect-ratio: 1;
     border-radius: 100vw;
-    background: var(--gold-finger);
+    background: darkred;
     text-align: center;
     line-height: 20px;
 }
@@ -90,3 +98,43 @@ img{
     display: none;
 }
 
+.hero-section{
+    min-height: calc(100vh - 14vh);
+}
+
+.content,
+.image-container{
+    flex: 1;
+}
+
+h1{
+    font-size: 5.6vw;
+    color:var(--lead);
+}
+
+h1 span{
+    color: rgba(106, 9, 9, 0.842);
+}
+
+
+p{
+    font-size: 1.25rem;
+    color: gray;
+    line-height: 1.8rem;
+    font-weight: 400;
+}
+
+.para{
+    margin-block: 2rem;
+    max-width: 550px ;
+}
+
+.social-icon{
+    background: var(--hint-yellow);
+    width: 3rem;
+    aspect-ratio: 1;
+    font-size: 1.2rem;
+    border-radius: 1rem;
+    color: black;
+
+}
