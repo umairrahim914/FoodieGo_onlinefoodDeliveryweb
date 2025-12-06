@@ -73,9 +73,11 @@ img{
     font-size: 1.1rem;
     box-shadow: rgb(0, 0, 0,0.1)0 2px 1px;
     transition: .3s ease-in-out;
+     
 }
 .btn:hover{
     background: var(--lead);
+    color:white;
 }
 .cart-icon{
     color: var(--lead);
@@ -136,6 +138,13 @@ p{
     aspect-ratio: 1;
     font-size: 1.2rem;
     border-radius: 1rem;
-    
+    text-align: center;
+    line-height: 3rem;
+    box-shadow: rgb(0, 0, 0,0.1)0 2px 1px;
+    transition: .3s ease-in-out;
+}
 
+.social-icon:hover{
+    background-color: var(--lead);
+    color: var(--pure-white);
 }
