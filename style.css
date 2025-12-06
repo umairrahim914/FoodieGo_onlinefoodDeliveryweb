@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto Condensed", sans-serif;
+}
+a{
+    font-size: 1.1rem;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    
+}
+.flex{
+    display: flex;
+    align-items: center;
+}
+li{
+    list-style: none;
+}
+.between{
+    justify-content: space-between;
+}
+.gap-2{
+    gap: 2rem;
+}
+.gap-3{
+    gap: 3rem;
+}
+.navbar{
+    min-height: 14vh;
+}
+body {
+    background-image: url("foodiegoLoginBackimg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+.wrapper{
+    max-width: 1400px;
+    margin: auto;
+    padding-inline: 1.5rem;
+}
+.logo{
+    font-size: 2rem;
+    font-weight: bold;
+}
+.btn{
+    display: inline-block;
+    padding: .9rem 2rem;
+    background: darkred;
+    border-radius: 1rem;
+    font-size: 1.1rem;
+    box-shadow: rgb(0, 0, 0,0.1)0 2px 1px;
+    transition: .3s ease-in-out;
+}
+.btn:hover{
+    background: var(--lead);
+}
+.cart-icon{
+    color: white;
+    font-size: 1.3rem;
+    position: relative;
+}
+.cart-icon .cart-value{
+    position: absolute;
+    top: 50%;
+    right: -10px;
+    font-size: .85rem;
+    width: 20px;
+    aspect-ratio: 1;
+    border-radius: 100vw;
+    background: var(--gold-finger);
+    text-align: center;
+    line-height: 20px;
+}
+.desktop-action .hamburger{
+    font-size: 1.5rem;
+    display: none;
+}
+
