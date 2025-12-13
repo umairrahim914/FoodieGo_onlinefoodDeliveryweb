@@ -50,7 +50,7 @@ li{
 }
 
 .mt-4{
-    margin: top 4rem;
+    margin-top:4rem;
 }
 
 .mt-half{
@@ -243,10 +243,22 @@ h3{
   .gap-4 {
     gap: 2rem;          /* reduce gap */
   }
-        /*section 01*/
-        h2{
-            font-size: 3rem;
+    /*section 01*/
+     h2{
+        font-size: 3rem;
         }
+
+    /* SECTION 4 */
+    .app-container{
+        padding: 2.2rem;
+        }
+ 
+     .app-container .content h2{
+        font-size: 3.5rem;
+
+
+        }
+
 
 }
 
@@ -295,6 +307,9 @@ h4{
 
 .review-container{
     /* background: red; */
+    width: 650px;
+    max-width: 100%;
+    flex: 1;
 }
 
 .profile{
@@ -314,6 +329,33 @@ h4{
 
 .fa-star{
     color: var(--gold-finger);
+}
+
+.arrow{
+    width: 2.5rem;
+    aspect-ratio: 1;
+    border-radius: 100vw;
+    background: var(--gold-finger);
+    color:var(--lead);
+    text-align: center;
+    line-height: 2.5rem;
+}
+
+/* section 4 */
+.app-container{
+    background: var(--hint-yellow);
+    padding: 3rem 6rem;
+    border-radius: 3rem;
+}
+
+.app-container .image-container img{
+    width:25rem;
+}
+
+
+
+.app-container .content h2{
+    font-size: 4.5rem;
 }
 
 
