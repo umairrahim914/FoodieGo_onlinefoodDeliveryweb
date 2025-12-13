@@ -57,6 +57,10 @@ li{
     margin-top: .5rem
 }
 
+.m-auto{
+    margin: auto;
+}
+
 
 
 .navbar{
@@ -359,5 +363,37 @@ h4{
 }
 
 
+/* SECTION 5 NEWSLETTER*/
 
+.input-container{
+    width:43rem;
+    max-width: 100%;
+    background: var(--pure-white);
+    padding: .8rem;
+    box-shadow: 
+    rgba(0, 0, 0, 0.1) 0 5px 8px;
+    border-radius: 1rem;
+    margin: 4rem auto 0 auto;
+
+}
+
+input[type="email"]{
+    flex:1;
+    height: 7vh;
+    background: transparent;
+    border: none;
+    font-size: 1.1rem;
+    padding: 1rem;
+}
+
+input[type="email"]:focus{
+    outline: none;
+}
+
+/* Footer styling */
+.footer-container{
+    margin-top: 10rem;
+    padding-block: 4rem;
+    background: var(--hint-yellow);
+}
 
