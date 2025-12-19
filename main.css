@@ -359,9 +359,19 @@ h4{
     align-items: center;
     gap: 1rem;
     padding: .7rem 1rem;
+    transition: all .5s ease-in-out;
+}
+
+.item.slide-out{
+    transform: translateX(50%);
 }
 .cart-list .item:nth-child(even){
     background: var(--eye-ball);
+}
+
+
+.item .detail{
+    flex: 2;
 }
 .item .item-image img{
     width: 5rem;
@@ -388,6 +398,8 @@ h4{
     font-weight: 400;
     margin-inline: .6rem;
 }
+
+
 
 /* section 3 */
 
