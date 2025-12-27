@@ -9,7 +9,7 @@
 }
 
 body{
-    background-image: url("images/foodiegoLoginBackimg.jpg");
+    background-image: url("images/121.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -39,7 +39,7 @@ body{
 }
 
 .nav-logo p{
-    color: white;
+    color: black;
     font-size: 25px;
     font-weight: 600;
 }

@@ -10,7 +10,7 @@
 }
 
 :root{
-    --lead: #212121;
+    --lead: black;
     --gold-finger: #F2BD12;
     --eye-ball: #FFFDF7;
     --hint-yellow: #FCF1CC;
@@ -23,6 +23,9 @@ a{
     color:var(--lead);
     font-weight: bold;
       
+}
+.a:hover, .active{
+    border-bottom: 2px solid black;
 }
 .flex{
     display: flex;
@@ -64,7 +67,7 @@ li{
     margin-top: 1.5rem;
 }
 
-
+/*header*/
 .navbar{
     min-height: 14vh;
 }
@@ -88,10 +91,13 @@ img{
     margin: auto;
     display: block;
 }
+/*header*/
 .logo{
     font-size: 2rem;
     font-weight: bold;
+    
 }
+/*header*/
 .btn{
     display: inline-block;
     padding: .9rem 2rem;
@@ -100,17 +106,21 @@ img{
     font-size: 1.1rem;
     box-shadow: rgb(0, 0, 0,0.1)0 2px 1px;
     transition: .3s ease-in-out;
+    
      
 }
+/*header*/
 .btn:hover{
     background: var(--lead);
     color:white;
 }
+/*header*/
 .cart-icon{
     color: var(--lead);
     font-size: 1.3rem;
     position: relative;
 }
+/*header*/
 .cart-icon .cart-value{
     position: absolute;
     top: 50%;
@@ -119,15 +129,16 @@ img{
     width: 20px;
     aspect-ratio: 1;
     border-radius: 100vw;
-    background: darkred;
+    background: var(--gold-finger);
     text-align: center;
     line-height: 20px;
 }
+/*header*/
 .desktop-action .hamburger{
     font-size: 1.5rem;
     display: none;
 }
-
+/*header*/
 .mobile-menu{
     display: none;
 }
@@ -144,30 +155,34 @@ img{
 h1{
     font-size:5.6vw;
     color: var(--lead);
+    
+    
 }
 h1 span{
-    color: darkred;
+    color: var(--gold-finger);
 }
 p{
     font-size: 1.25rem;
     color: gray;
+    
     line-height: 1.8rem;
     font-weight: 400;
 }
 .para{
     margin-block: 2rem;
     max-width: 550px;
+    
 }
 .social-icon{
-    background: var(--gold-finger);
-    width: 3rem;
-    aspect-ratio: 1;
-    font-size: 1.2rem;
-    border-radius: 1rem;
-    text-align: center;
-    line-height: 3rem;
-    box-shadow: rgb(0, 0, 0,0.1)0 2px 1px;
-    transition: .3s ease-in-out;
+  background: var(--gold-finger);
+  width: 3rem;
+  aspect-ratio: 1;
+  font-size: 1.2rem;
+  border-radius: 1rem;
+  text-align: center;
+  line-height: 3rem;
+  box-shadow: rgb(0, 0, 0,0.1)0 2px 1px;
+  transition: .3s ease-in-out;
 }
 .social-icon:hover{
     background-color: var(--lead);
@@ -487,6 +502,9 @@ input[type="email"]{
 
 input[type="email"]:focus{
     outline: none;
+}
+html {
+  scroll-behavior: smooth;
 }
 
 /* Footer styling */
