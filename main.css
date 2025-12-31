@@ -550,66 +550,77 @@ html {
   background-color: #f9f9f9;
 }
 
+/* LEFT SIDE HEADING LIKE BEST SELLER */
 #explore-menu .text-center {
+  text-align: left;
   margin-bottom: 40px;
 }
 
 #explore-menu h5 {
-  font-size: 1.2rem;
-  color: darkred;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 10px;
-}
-
-.explore-menu h2 {
   font-size: 24px;
   font-weight: bold;
   text-transform: uppercase;
-  border-bottom: 2px solid red;
+  color: #000;
   display: inline-block;
-  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 8px;
 }
 
+/* RED UNDERLINE */
+#explore-menu h5::after {
+  content: "";
+  width: 60px;
+  height: 4px;
+  background: #e4002b;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+/* MENU GRID */
 #explore-menu .menu-categories {
+  display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 30px;
 }
 
+/* MENU CARD */
 .menu-category {
   width: 200px;
   text-align: center;
   padding: 20px;
+  background: #fff;
   border-radius: 10px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.menu-category:hover {
-  transform: translateY(-5px);
-}
-
+/* IMAGE */
 .menu-category img {
   width: 100%;
   height: 150px;
   object-fit: cover;
   border-radius: 8px;
-  margin-bottom: 15px;
 }
 
+/* CATEGORY NAME + UNDERLINE */
 .menu-category h4 {
   margin-top: 15px;
   font-size: 1.1rem;
-  color: #333;
+  font-weight: bold;
+  position: relative;
+  padding-bottom: 6px;
 }
 
-.menu-category .red-line {
+.menu-category h4::after {
+  content: "";
   width: 30px;
   height: 2px;
-  background-color: #e74c3c;
-  margin: 10px auto;
+  background: #e4002b;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
 }
 
 .best-sellers {
@@ -621,10 +632,21 @@ html {
   font-size: 24px;
   font-weight: bold;
   text-transform: uppercase;
-  border-bottom: 2px solid red;
   display: inline-block;
   margin-bottom: 20px;
+  position: relative;   /* ← THIS LINE WAS MISSING */
 }
+
+.best-sellers h2::after {
+  content: "";
+  width: 60px;
+  height: 4px;
+  background: #e4002b;
+  position: absolute;
+  left: 0;
+  bottom: -6px;         /* optional: little gap */
+}
+
 .products {
     display: flex;
     flex-wrap: wrap;
@@ -671,80 +693,83 @@ html {
     background: #333;
 }
 /* Top Deals Styles */
-#top-deals .text-left {
-  margin-bottom: 40px;
+#top-deals {
+  padding: 60px 20px;
+  background: #f7f7f7;
 }
 
-#top-deals h5 {
+#top-deals .text-left h5 {
   font-size: 2rem;
-  color: black;
-  font-weight: bold;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin-bottom: 10px;
-  position: relative;
   display: inline-block;
-  border-bottom: 2px solid #e74c3c;
-  padding-bottom: 5px;
+  position: relative;
+  padding-bottom: 8px;
 }
 
-#top-deals .red-line {
-  width: 50px;
-  height: 3px;
-  background-color: #e74c3c;
-  margin: 0;
+#top-deals .text-left h5::after {
+  content: "";
+  width: 60px;
+  height: 4px;
+  background: #e4002b;
   position: absolute;
-  bottom: -5px;
   left: 0;
+  bottom: 0;
 }
 
 .deals-grid {
   display: flex;
   flex-wrap: wrap;
+  gap: 25px;
   justify-content: center;
-  gap: 20px;
+  margin-top: 40px;
 }
 
 .deal-card {
+  width: 260px;
   background: #fff;
-  border-radius: 8px;
+  border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  width: 220px;
-  margin: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.deal-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.deal-image {
+  position: relative;
 }
 
 .deal-image img {
   width: 100%;
-  height: 150px;
+  height: 170px;
   object-fit: cover;
 }
 
-.heart-icon {
+.deal-badge {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  color: #e74c3c;
-  font-size: 1.2rem;
-}
-
-.red-dots {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  color: #e74c3c;
-  font-size: 1.2rem;
-  letter-spacing: 2px;
+  top: 12px;
+  left: 12px;
+  background: #e4002b;
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-weight: 700;
 }
 
 .deal-info {
-  padding: 20px;
-  text-align: left;
+  padding: 18px;
 }
 
 .deal-info h4 {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 6px;
 }
 
 .deal-info p {
@@ -753,22 +778,29 @@ html {
   margin-bottom: 15px;
 }
 
-.deal-info .price {
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin-bottom: 15px;
+.deal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #000;
 }
 
 .add-to-bucket {
-  background: #e74c3c;
+  background: #e4002b;
   color: #fff;
   border: none;
-  padding: 10px 15px;
-  border-radius: 4px;
+  padding: 10px 16px;
+  border-radius: 25px;
+  font-weight: 700;
   cursor: pointer;
-  font-weight: bold;
+  transition: background 0.3s ease;
 }
 
 .add-to-bucket:hover {
-  background: #c0392b;
+  background: #b30022;
 }

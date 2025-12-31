@@ -212,4 +212,16 @@ document.querySelectorAll('.product-card button').forEach(button => {
         alert(`${button.parentElement.querySelector('h3').textContent} added to cart!`);
     });
 });
-
+// Smooth scroll to Explore Menu section when clicking navbar links
+document.querySelectorAll('nav a[href^="#"]').forEach(link => {
+  link.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      window.scrollTo({
+        top: target.offsetTop - 80, // adjust if your navbar is fixed
+        behavior: 'smooth'
+      });
+    }
+  });
+});
