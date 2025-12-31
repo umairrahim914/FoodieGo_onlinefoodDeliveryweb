@@ -165,4 +165,51 @@
     }
 
     initApp();
+    // Explore Menu Data
+const menuCategories = [
+  {
+    name: "Promotion",
+    image: "images/fff.png" // replace with your image path
+  },
+  {
+    name: "Everyday Value",
+    image: "images/bg.jpg"
+  },
+  {
+    name: "Ala-Carte & Combos",
+    image: "images/99.png"
+  },
+  {
+    name: "Signature Boxes",
+    image: "images/00.png"
+  },
+  {
+    name: "Sharing",
+    image: "images/bugz.png"
+  }
+];
+
+// Function to display menu categories
+const showMenuCategories = () => {
+  const menuContainer = document.querySelector(".menu-categories");
+  menuCategories.forEach(category => {
+    const menuItem = document.createElement("div");
+    menuItem.classList.add("menu-category");
+    menuItem.innerHTML = `
+      <img src="${category.image}" alt="${category.name}">
+      <div class="red-line"></div>
+      <h4>${category.name}</h4>
+    `;
+    menuContainer.appendChild(menuItem);
+  });
+};
+
+// Call the function to display menu categories
+showMenuCategories();
+// Add event listeners to "Add to Cart" buttons in Best Sellers section
+document.querySelectorAll('.product-card button').forEach(button => {
+    button.addEventListener('click', () => {
+        alert(`${button.parentElement.querySelector('h3').textContent} added to cart!`);
+    });
+});
 
