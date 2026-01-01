@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import './LoginSignup.css';
 
 const LoginSignup = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -110,6 +111,16 @@ const LoginSignup = () => {
             />
           </div>
 
+          <div className="two-col">
+            <div className="one">
+              <input type="checkbox" id="login-check" />
+              <label htmlFor="login-check">Remember Me</label>
+            </div>
+            <div className="two">
+              <label><a href="#">Forget Password?</a></label>
+            </div>
+          </div>
+
           <span id="login-acc-span">
             Don't have an account? 
             <a href="#" onClick={register}>Sign Up</a>
@@ -198,6 +209,9 @@ const LoginSignup = () => {
                 Already have an account? 
                 <a href="#" onClick={login}>Login</a>
               </span>
+              <div className="two">
+                <label><a href="#">Terms & Conditions</a></label>
+              </div>
             </div>
           </div>
         </div>

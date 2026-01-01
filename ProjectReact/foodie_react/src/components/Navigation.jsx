@@ -38,6 +38,21 @@ const Navigation = () => {
             </span>
           </button>
 
+          {/* Dashboard Links */}
+          <Link
+            to="/user-dashboard"
+            className="btn-custom no-underline mr-2"
+          >
+            User Dashboard &nbsp; <i className="fa-solid fa-user"></i>
+          </Link>
+
+          <Link
+            to="/admin-dashboard"
+            className="btn-custom no-underline mr-2"
+          >
+            Admin Panel &nbsp; <i className="fa-solid fa-cog"></i>
+          </Link>
+
           {/* Login Button */}
           <Link
             to="/login"
@@ -62,6 +77,24 @@ const Navigation = () => {
           <li><a href="#service" className="no-underline text-[var(--lead)] font-bold" onClick={() => setIsMobileMenuOpen(false)}>Service</a></li>
           <li><a href="#about" className="no-underline text-[var(--lead)] font-bold" onClick={() => setIsMobileMenuOpen(false)}>About Us</a></li>
           <li><a href="#contact" className="no-underline text-[var(--lead)] font-bold" onClick={() => setIsMobileMenuOpen(false)}>Contacts</a></li>
+          <li>
+            <Link
+              to="/user-dashboard"
+              className="btn-custom no-underline mb-2"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              User Dashboard &nbsp; <i className="fa-solid fa-user"></i>
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/admin-dashboard"
+              className="btn-custom no-underline mb-2"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Admin Panel &nbsp; <i className="fa-solid fa-cog"></i>
+            </Link>
+          </li>
           <li>
             <Link
               to="/login"

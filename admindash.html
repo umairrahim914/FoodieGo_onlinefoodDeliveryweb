@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - FoodieGo</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="admindash.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar flex between wrapper">
+            <a href="main.html" class="logo">FoodieGo. <span class="admin-badge">Admin</span></a>
+            <div class="admin-info flex gap-2">
+                <div class="notifications">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="notification-count">3</span>
+                </div>
+                <div class="admin-profile">
+                    <img src="images/profile2.jpeg" alt="Admin Profile" class="profile-img">
+                    <span>Admin Panel</span>
+                </div>
+                <a href="main.html" class="btn">Back to Site</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="admin-main">
+        <div class="wrapper">
+            <!-- Sidebar -->
+            <aside class="admin-sidebar">
+                <ul class="admin-menu">
+                    <li><a href="#dashboard" class="menu-link active" data-section="dashboard">
+                        <i class="fa-solid fa-chart-pie"></i> Dashboard
+                    </a></li>
+                    <li><a href="#orders" class="menu-link" data-section="orders">
+                        <i class="fa-solid fa-shopping-cart"></i> Orders
+                    </a></li>
+                    <li><a href="#products" class="menu-link" data-section="products">
+                        <i class="fa-solid fa-utensils"></i> Products
+                    </a></li>
+                    <li><a href="#categories" class="menu-link" data-section="categories">
+                        <i class="fa-solid fa-tags"></i> Categories
+                    </a></li>
+                    <li><a href="#users" class="menu-link" data-section="users">
+                        <i class="fa-solid fa-users"></i> Users
+                    </a></li>
+                    <li><a href="#analytics" class="menu-link" data-section="analytics">
+                        <i class="fa-solid fa-chart-bar"></i> Analytics
+                    </a></li>
+                    <li><a href="#reviews" class="menu-link" data-section="reviews">
+                        <i class="fa-solid fa-star"></i> Reviews
+                    </a></li>
+                    <li><a href="#settings" class="menu-link" data-section="settings">
+                        <i class="fa-solid fa-cog"></i> Settings
+                    </a></li>
+                </ul>
+            </aside>
+
+            <!-- Main Content -->
+            <div class="admin-content">
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="content-section active">
+                    <div class="section-header">
+                        <h2>Dashboard Overview</h2>
+                        <div class="date-filter">
+                            <select id="dateRange">
+                                <option value="today">Today</option>
+                                <option value="week">This Week</option>
+                                <option value="month" selected>This Month</option>
+                                <option value="year">This Year</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="admin-stats-grid">
+                        <div class="admin-stat-card revenue">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-dollar-sign"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>$12,450</h3>
+                                <p>Total Revenue</p>
+                                <span class="trend positive">+12.5%</span>
+                            </div>
+                        </div>
+                        <div class="admin-stat-card orders">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-shopping-bag"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>342</h3>
+                                <p>Total Orders</p>
+                                <span class="trend positive">+8.2%</span>
+                            </div>
+                        </div>
+                        <div class="admin-stat-card users">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>1,248</h3>
+                                <p>Active Users</p>
+                                <span class="trend positive">+15.3%</span>
+                            </div>
+                        </div>
+                        <div class="admin-stat-card products">
+                            <div class="stat-icon">
+                                <i class="fa-solid fa-utensils"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>89</h3>
+                                <p>Total Products</p>
+                                <span class="trend neutral">+2.1%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-charts">
+                        <div class="chart-container">
+                            <h3>Sales Overview</h3>
+                            <div class="chart-placeholder">
+                                <canvas id="salesChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <h3>Popular Items</h3>
+                            <div class="popular-items">
+                                <div class="popular-item">
+                                    <img src="images/burger.png" alt="Burger">
+                                    <div class="item-info">
+                                        <h4>Double Beef Burger</h4>
+                                        <p>142 orders</p>
+                                    </div>
+                                    <span class="item-revenue">$1,374</span>
+                                </div>
+                                <div class="popular-item">
+                                    <img src="images/pizza.png" alt="Pizza">
+                                    <div class="item-info">
+                                        <h4>Veggie Pizza</h4>
+                                        <p>98 orders</p>
+                                    </div>
+                                    <span class="item-revenue">$1,076</span>
+                                </div>
+                                <div class="popular-item">
+                                    <img src="images/fried-chicken.png" alt="Chicken">
+                                    <div class="item-info">
+                                        <h4>Fried Chicken</h4>
+                                        <p>87 orders</p>
+                                    </div>
+                                    <span class="item-revenue">$1,170</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recent-activity">
+                        <h3>Recent Activity</h3>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon order">
+                                    <i class="fa-solid fa-shopping-cart"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <p><strong>New order #12345</strong> from John Doe</p>
+                                    <span class="activity-time">2 minutes ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon user">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <p><strong>New user registered:</strong> Jane Smith</p>
+                                    <span class="activity-time">15 minutes ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon review">
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <p><strong>New 5-star review</strong> for Double Beef Burger</p>
+                                    <span class="activity-time">1 hour ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Orders Section -->
+                <section id="orders" class="content-section">
+                    <div class="section-header">
+                        <h2>Order Management</h2>
+                        <div class="order-actions">
+                            <input type="search" placeholder="Search orders..." class="search-input">
+                            <select class="status-filter">
+                                <option value="all">All Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="preparing">Preparing</option>
+                                <option value="delivered">Delivered</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="orders-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Items</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#12345</td>
+                                    <td>John Doe</td>
+                                    <td>2x Double Beef Burger</td>
+                                    <td>$19.34</td>
+                                    <td><span class="status pending">Pending</span></td>
+                                    <td>Dec 28, 2024</td>
+                                    <td>
+                                        <button class="action-btn view" title="View Details">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn edit" title="Edit Order">
+                                            <i class="fa-solid fa-edit"></i>
+                                        </button>
+                                        <button class="action-btn delete" title="Cancel Order">
+                                            <i class="fa-solid fa-times"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#12344</td>
+                                    <td>Jane Smith</td>
+                                    <td>1x Veggie Pizza</td>
+                                    <td>$10.99</td>
+                                    <td><span class="status preparing">Preparing</span></td>
+                                    <td>Dec 28, 2024</td>
+                                    <td>
+                                        <button class="action-btn view" title="View Details">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn edit" title="Edit Order">
+                                            <i class="fa-solid fa-edit"></i>
+                                        </button>
+                                        <button class="action-btn delete" title="Cancel Order">
+                                            <i class="fa-solid fa-times"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Products Section -->
+                <section id="products" class="content-section">
+                    <div class="section-header">
+                        <h2>Product Management</h2>
+                        <button class="btn add-product-btn">+ Add New Product</button>
+                    </div>
+
+                    <div class="products-grid">
+                        <div class="product-admin-card">
+                            <img src="images/burger.png" alt="Burger">
+                            <div class="product-info">
+                                <h4>Double Beef Burger</h4>
+                                <p class="product-price">$9.67</p>
+                                <p class="product-category">Burgers</p>
+                                <div class="product-status available">Available</div>
+                            </div>
+                            <div class="product-actions">
+                                <button class="action-btn edit" title="Edit Product">
+                                    <i class="fa-solid fa-edit"></i>
+                                </button>
+                                <button class="action-btn delete" title="Delete Product">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                                <button class="action-btn toggle" title="Toggle Availability">
+                                    <i class="fa-solid fa-toggle-on"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-admin-card">
+                            <img src="images/pizza.png" alt="Pizza">
+                            <div class="product-info">
+                                <h4>Veggie Pizza</h4>
+                                <p class="product-price">$10.99</p>
+                                <p class="product-category">Pizza</p>
+                                <div class="product-status available">Available</div>
+                            </div>
+                            <div class="product-actions">
+                                <button class="action-btn edit" title="Edit Product">
+                                    <i class="fa-solid fa-edit"></i>
+                                </button>
+                                <button class="action-btn delete" title="Delete Product">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                                <button class="action-btn toggle" title="Toggle Availability">
+                                    <i class="fa-solid fa-toggle-on"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Users Section -->
+                <section id="users" class="content-section">
+                    <div class="section-header">
+                        <h2>User Management</h2>
+                        <input type="search" placeholder="Search users..." class="search-input">
+                    </div>
+
+                    <div class="users-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>User ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Orders</th>
+                                    <th>Total Spent</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#001</td>
+                                    <td>John Doe</td>
+                                    <td>john.doe@email.com</td>
+                                    <td>24</td>
+                                    <td>$342.50</td>
+                                    <td><span class="status active">Active</span></td>
+                                    <td>
+                                        <button class="action-btn view" title="View Profile">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn edit" title="Edit User">
+                                            <i class="fa-solid fa-edit"></i>
+                                        </button>
+                                        <button class="action-btn delete" title="Suspend User">
+                                            <i class="fa-solid fa-ban"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Analytics Section -->
+                <section id="analytics" class="content-section">
+                    <div class="section-header">
+                        <h2>Analytics & Reports</h2>
+                        <button class="btn export-btn">Export Report</button>
+                    </div>
+
+                    <div class="analytics-grid">
+                        <div class="analytics-card">
+                            <h3>Revenue Trends</h3>
+                            <div class="chart-placeholder">
+                                <canvas id="revenueChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="analytics-card">
+                            <h3>Order Distribution</h3>
+                            <div class="chart-placeholder">
+                                <canvas id="orderChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="analytics-card">
+                            <h3>Customer Growth</h3>
+                            <div class="chart-placeholder">
+                                <canvas id="customerChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="analytics-card">
+                            <h3>Top Categories</h3>
+                            <div class="category-stats">
+                                <div class="category-item">
+                                    <span class="category-name">Burgers</span>
+                                    <div class="category-bar">
+                                        <div class="category-fill" style="width: 85%"></div>
+                                    </div>
+                                    <span class="category-percent">85%</span>
+                                </div>
+                                <div class="category-item">
+                                    <span class="category-name">Pizza</span>
+                                    <div class="category-bar">
+                                        <div class="category-fill" style="width: 72%"></div>
+                                    </div>
+                                    <span class="category-percent">72%</span>
+                                </div>
+                                <div class="category-item">
+                                    <span class="category-name">Chicken</span>
+                                    <div class="category-bar">
+                                        <div class="category-fill" style="width: 68%"></div>
+                                    </div>
+                                    <span class="category-percent">68%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Reviews Section -->
+                <section id="reviews" class="content-section">
+                    <div class="section-header">
+                        <h2>Customer Reviews</h2>
+                        <div class="review-filters">
+                            <select class="rating-filter">
+                                <option value="all">All Ratings</option>
+                                <option value="5">5 Stars</option>
+                                <option value="4">4 Stars</option>
+                                <option value="3">3 Stars</option>
+                                <option value="2">2 Stars</option>
+                                <option value="1">1 Star</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="reviews-list">
+                        <div class="review-card">
+                            <div class="review-header">
+                                <div class="reviewer-info">
+                                    <img src="images/profile1.jpeg" alt="Reviewer">
+                                    <div>
+                                        <h4>John Doe</h4>
+                                        <div class="rating">
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                            <i class="fa-solid fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="review-date">Dec 28, 2024</span>
+                            </div>
+                            <div class="review-content">
+                                <h5>Double Beef Burger</h5>
+                                <p>Amazing burger! The meat was perfectly cooked and the ingredients were fresh. Delivery was quick too!</p>
+                            </div>
+                            <div class="review-actions">
+                                <button class="action-btn approve">
+                                    <i class="fa-solid fa-check"></i> Approve
+                                </button>
+                                <button class="action-btn delete">
+                                    <i class="fa-solid fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings" class="content-section">
+                    <div class="section-header">
+                        <h2>System Settings</h2>
+                    </div>
+
+                    <div class="settings-tabs">
+                        <button class="tab-btn active" data-tab="general">General</button>
+                        <button class="tab-btn" data-tab="delivery">Delivery</button>
+                        <button class="tab-btn" data-tab="payment">Payment</button>
+                        <button class="tab-btn" data-tab="notifications">Notifications</button>
+                    </div>
+
+                    <div class="settings-content">
+                        <div id="general" class="tab-content active">
+                            <div class="settings-form">
+                                <div class="form-group">
+                                    <label>Restaurant Name</label>
+                                    <input type="text" value="FoodieGo" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label>Contact Email</label>
+                                    <input type="email" value="support@foodiego.com" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone Number</label>
+                                    <input type="tel" value="+92 300 123457" class="form-input">
+                                </div>
+                                <button class="btn">Save Changes</button>
+                            </div>
+                        </div>
+                        <div id="delivery" class="tab-content">
+                            <div class="settings-form">
+                                <div class="form-group">
+                                    <label>Delivery Fee</label>
+                                    <input type="number" value="2.99" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label>Free Delivery Minimum</label>
+                                    <input type="number" value="25.00" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label>Delivery Radius (km)</label>
+                                    <input type="number" value="10" class="form-input">
+                                </div>
+                                <button class="btn">Save Changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script src="admindash.js"></script>
+</body>
+</html>
