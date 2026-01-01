@@ -85,9 +85,37 @@ a {
   text-align: center;
 }
 
+/* Navigation Links */
+.nav-link {
+  text-decoration: none;
+  font-weight: bold;
+  color: white;
+  position: relative;
+  padding-bottom: 4px;
+  transition: all 0.3s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-link:hover {
+  color: var(--gold-finger);
+  border-bottom: 2px solid var(--gold-finger);
+}
+
+.nav-link-active {
+  color: var(--gold-finger) !important;
+  border-bottom: 2px solid var(--gold-finger) !important;
+}
+
+.nav-link-active:hover {
+  color: var(--gold-finger) !important;
+  border-bottom: 2px solid var(--gold-finger) !important;
+}
+
 /* Navbar */
 .navbar {
   min-height: 14vh;
+  position: relative;
+  z-index: 100;
 }
 
 .navbar a {
@@ -95,6 +123,16 @@ a {
   text-decoration: none;
   color: var(--lead);
   font-weight: bold;
+}
+
+/* Navigation on dark backgrounds */
+.about-page .navbar a,
+.about-page .logo {
+  color: white !important;
+}
+
+.about-page .navbar .cart-icon {
+  color: var(--lead) !important;
 }
 
 .logo {
@@ -143,6 +181,11 @@ a {
   color: var(--lead);
   font-size: 1.3rem;
   position: relative;
+  transition: color 0.3s ease;
+}
+
+.cart-icon:hover {
+  color: var(--gold-finger);
 }
 
 .cart-icon .cart-value {
@@ -157,6 +200,15 @@ a {
   text-align: center;
   line-height: 20px;
   color: white;
+}
+
+/* Cart icon on dark backgrounds */
+.about-page .cart-icon {
+  color: var(--lead) !important;
+}
+
+.about-page .cart-icon:hover {
+  color: var(--gold-finger) !important;
 }
 
 /* Hero Section */

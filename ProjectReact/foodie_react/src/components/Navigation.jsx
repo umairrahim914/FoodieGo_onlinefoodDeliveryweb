@@ -1,36 +1,59 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { getTotalQuantity, toggleCart } = useCart();
+  const location = useLocation();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  // Function to check if link is active
+  const isActive = (path) => {
+    return location.pathname === path;
+  };
+
+  // Function to get link classes with active state
+  const getLinkClasses = (path) => {
+    const isCurrentPage = isActive(path);
+    if (isCurrentPage) {
+      return "nav-link nav-link-active";
+    }
+    return "nav-link";
+  };
+
+  // Function to get anchor link classes (for Service, Contacts)
+  const getAnchorClasses = (path = null) => {
+    if (path && isActive(path)) {
+      return "nav-link nav-link-active";
+    }
+    return "nav-link";
+  };
+
   return (
     <header>
       <nav className="navbar flex between wrapper">
-        <Link to="/" className="logo font-bold text-[var(--lead)] no-underline">
+        <Link to="/" className="logo font-bold text-white no-underline">
           FoodieGo.
         </Link>
 
         {/* Desktop Menu */}
         <ul className={`navlist flex gap-3 ${isMobileMenuOpen ? 'mobile-menu-active' : ''}`} id="navList">
-          <li><Link to="/" className="no-underline text-[var(--lead)] font-bold hover:text-[var(--gold-finger)]">Home</Link></li>
-          <li><a href="#menu" className="no-underline text-[var(--lead)] font-bold hover:text-[var(--gold-finger)]">Menu</a></li>
-          <li><a href="#service" className="no-underline text-[var(--lead)] font-bold hover:text-[var(--gold-finger)]">Service</a></li>
-          <li><a href="#about" className="no-underline text-[var(--lead)] font-bold hover:text-[var(--gold-finger)]">About Us</a></li>
-          <li><a href="#contact" className="no-underline text-[var(--lead)] font-bold hover:text-[var(--gold-finger)]">Contacts</a></li>
+          <li><Link to="/" className={getLinkClasses("/")}>Home</Link></li>
+          <li><Link to="/menu" className={getLinkClasses("/menu")}>Menu</Link></li>
+          <li><a href="#service" className={getAnchorClasses()}>Service</a></li>
+          <li><Link to="/about" className={getLinkClasses("/about")}>About Us</Link></li>
+          <li><Link to="/contact" className={getAnchorClasses("/contact")}>Contacts</Link></li>
         </ul>
 
         <div className="desktop-action flex gap-2">
           {/* Cart Icon */}
           <button
             onClick={toggleCart}
-            className="cart-icon text-[var(--lead)] text-xl relative no-underline"
+            className="cart-icon text-gray-800 text-xl relative no-underline hover:text-[var(--gold-finger)] transition-colors duration-300"
           >
             <i className="fa-solid fa-bag-shopping"></i>
             <span className="cart-value absolute -top-2 -right-3 text-sm w-5 h-5 rounded-full bg-red-800 text-white text-center leading-5">
@@ -72,11 +95,11 @@ const Navigation = () => {
 
         {/* Mobile Menu */}
         <ul className={`mobile-menu ${isMobileMenuOpen ? 'mobile-menu-active' : ''}`}>
-          <li><Link to="/" className="no-underline text-[var(--lead)] font-bold" onClick={() => setIsMobileMenuOpen(false)}>Home</Link></li>
-          <li><a href="#menu" className="no-underline text-[var(--lead)] font-bold" onClick={() => setIsMobileMenuOpen(false)}>Menu</a></li>
-          <li><a href="#service" className="no-underline text-[var(--lead)] font-bold" onClick={() => setIsMobileMenuOpen(false)}>Service</a></li>
-          <li><a href="#about" className="no-underline text-[var(--lead)] font-bold" onClick={() => setIsMobileMenuOpen(false)}>About Us</a></li>
-          <li><a href="#contact" className="no-underline text-[var(--lead)] font-bold" onClick={() => setIsMobileMenuOpen(false)}>Contacts</a></li>
+          <li><Link to="/" className={`${getLinkClasses("/")} block py-2`} onClick={() => setIsMobileMenuOpen(false)}>Home</Link></li>
+          <li><Link to="/menu" className={`${getLinkClasses("/menu")} block py-2`} onClick={() => setIsMobileMenuOpen(false)}>Menu</Link></li>
+          <li><a href="#service" className={`${getAnchorClasses()} block py-2`} onClick={() => setIsMobileMenuOpen(false)}>Service</a></li>
+          <li><Link to="/about" className={`${getLinkClasses("/about")} block py-2`} onClick={() => setIsMobileMenuOpen(false)}>About Us</Link></li>
+          <li><Link to="/contact" className={`${getAnchorClasses("/contact")} block py-2`} onClick={() => setIsMobileMenuOpen(false)}>Contacts</Link></li>
           <li>
             <Link
               to="/user-dashboard"
