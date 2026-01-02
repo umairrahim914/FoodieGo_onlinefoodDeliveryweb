@@ -1,67 +1,43 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import Navigation from '../components/Navigation';
+import ProductCard from '../components/ProductCard';
+import Footer from '../components/Footer';
+import CartSidebar from '../components/CartSidebar';
+import productsData from '../data/products.json';
 import './MenuPage.css';
 
 const MenuPage = () => {
-  const menuCategories = [
-    {
-      name: "Appetizers",
-      items: [
-        "French Fries ($5)",
-        "Chicken Wings ($8)", 
-        "Onion Rings ($6)"
-      ]
-    },
-    {
-      name: "Main Course",
-      items: [
-        "Grilled Chicken ($15)",
-        "Beef Burger ($12)",
-        "Veggie Burger ($10)"
-      ]
-    },
-    {
-      name: "Desserts", 
-      items: [
-        "Ice Cream ($5)",
-        "Chocolate Cake ($8)",
-        "Fruit Salad ($6)"
-      ]
-    }
-  ];
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    setProducts(productsData);
+  }, []);
 
   return (
-    <div className="menu-wrapper">
-      <nav className="menu-nav">
-        <div className="menu-nav-logo">
-          <p>FoodieGo</p>
-        </div>
-        <div className="menu-nav-menu">
-          <ul>
-            <li><Link to="/" className="link">Home</Link></li>
-            <li><Link to="/menu" className="link menu-active">Menu</Link></li>
-            <li><Link to="/service" className="link">Service</Link></li>
-            <li><Link to="/about" className="link">About Us</Link></li>
-            <li><Link to="/contact" className="link">Contact</Link></li>
-          </ul>
-        </div>
-      </nav>
+    <div className="menu-page">
+      <Navigation />
       
-      <section className="menu-section">
-        <h1>Our Menu</h1>
-        <div className="menu-categories">
-          {menuCategories.map((category, index) => (
-            <div key={index} className="menu-category">
-              <h2>{category.name}</h2>
-              <ul>
-                {category.items.map((item, itemIndex) => (
-                  <li key={itemIndex}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
+      {/* Hero Section */}
+      <section className="menu-hero">
+        <div className="menu-hero-content">
+          <h1 className="menu-title">OUR MENU</h1>
+          <h2 className="menu-subtitle">The Most Popular</h2>
         </div>
       </section>
+
+      {/* Products Section */}
+      <section className="products-section">
+        <div className="wrapper">
+          <div className="card-list text-center flex mt-4 gap-2 flex-wrap justify-center">
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+      <CartSidebar />
     </div>
   );
 };

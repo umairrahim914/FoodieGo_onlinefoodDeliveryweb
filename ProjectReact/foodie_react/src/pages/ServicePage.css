@@ -1,0 +1,166 @@
+/* Service Page Styles */
+.service-page {
+  min-height: 100vh;
+  background-color: white;
+  color: var(--lead);
+}
+
+/* Navigation styling for Service page */
+.service-page .navbar {
+  background: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.service-page .navbar .logo,
+.service-page .navbar a,
+.service-page .navbar button {
+  color: var(--lead) !important;
+}
+
+.service-page .navbar .cart-icon {
+  color: var(--lead) !important;
+}
+
+/* Hero Section */
+.service-hero {
+  background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
+              url('/images/various-fast-food-background-burgers-260nw-2613495945.webp');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 0;
+  padding-top: 14vh;
+}
+
+.service-hero-content {
+  max-width: 800px;
+  padding: 2rem;
+}
+
+.service-title {
+  font-size: 1.2rem;
+  letter-spacing: 0.2rem;
+  color: darkred;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.service-subtitle {
+  font-size: 3.7rem;
+  text-transform: capitalize;
+  color: black;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Services Section */
+.services-section {
+  padding: 5rem 0;
+  background-color: white;
+}
+
+.services-section .wrapper {
+  max-width: 1400px;
+  margin: auto;
+  padding-inline: 1.5rem;
+}
+
+.services-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4rem;
+  margin-top: 4rem;
+}
+
+.service-card {
+  flex: 0 0 350px;
+  text-align: center;
+  padding: 2rem;
+  background: white;
+  border-radius: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: rgba(0, 0, 0, 0.1) 0 15px 35px;
+}
+
+.service-image-container {
+  margin-bottom: 2rem;
+}
+
+.service-image {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  margin: 0 auto;
+  display: block;
+  filter: drop-shadow(rgba(0, 0, 0, 0.1) 0 5px 15px);
+}
+
+.service-card-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--lead);
+  margin-bottom: 1.5rem;
+  text-transform: capitalize;
+}
+
+.service-card-description {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.6;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .service-title {
+    font-size: 1rem;
+  }
+  
+  .service-subtitle {
+    font-size: 2.5rem;
+  }
+  
+  .services-grid {
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .service-card {
+    flex: 0 0 300px;
+    padding: 1.5rem;
+  }
+  
+  .service-hero {
+    height: 40vh;
+  }
+  
+  .service-image {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .service-card-title {
+    font-size: 1.8rem;
+  }
+  
+  .service-card-description {
+    font-size: 1rem;
+  }
+}

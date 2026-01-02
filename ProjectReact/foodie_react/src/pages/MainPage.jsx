@@ -1,8 +1,6 @@
 import React from 'react';
 import Navigation from '../components/Navigation';
 import HeroSection from '../components/HeroSection';
-import ServiceCards from '../components/ServiceCards';
-import ProductMenu from '../components/ProductMenu';
 import ReviewsCarousel from '../components/ReviewsCarousel';
 import Footer from '../components/Footer';
 import CartSidebar from '../components/CartSidebar';
@@ -12,8 +10,6 @@ const MainPage = () => {
     <div className="min-h-screen">
       <Navigation />
       <HeroSection />
-      <ServiceCards />
-      <ProductMenu />
       <ReviewsCarousel />
       
       {/* Mobile App Promotion Section - Exact match to original */}

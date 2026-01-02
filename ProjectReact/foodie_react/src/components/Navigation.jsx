@@ -44,7 +44,7 @@ const Navigation = () => {
         <ul className={`navlist flex gap-3 ${isMobileMenuOpen ? 'mobile-menu-active' : ''}`} id="navList">
           <li><Link to="/" className={getLinkClasses("/")}>Home</Link></li>
           <li><Link to="/menu" className={getLinkClasses("/menu")}>Menu</Link></li>
-          <li><a href="#service" className={getAnchorClasses()}>Service</a></li>
+          <li><Link to="/service" className={getLinkClasses("/service")}>Service</Link></li>
           <li><Link to="/about" className={getLinkClasses("/about")}>About Us</Link></li>
           <li><Link to="/contact" className={getAnchorClasses("/contact")}>Contacts</Link></li>
         </ul>
@@ -97,7 +97,7 @@ const Navigation = () => {
         <ul className={`mobile-menu ${isMobileMenuOpen ? 'mobile-menu-active' : ''}`}>
           <li><Link to="/" className={`${getLinkClasses("/")} block py-2`} onClick={() => setIsMobileMenuOpen(false)}>Home</Link></li>
           <li><Link to="/menu" className={`${getLinkClasses("/menu")} block py-2`} onClick={() => setIsMobileMenuOpen(false)}>Menu</Link></li>
-          <li><a href="#service" className={`${getAnchorClasses()} block py-2`} onClick={() => setIsMobileMenuOpen(false)}>Service</a></li>
+          <li><Link to="/service" className={`${getLinkClasses("/service")} block py-2`} onClick={() => setIsMobileMenuOpen(false)}>Service</Link></li>
           <li><Link to="/about" className={`${getLinkClasses("/about")} block py-2`} onClick={() => setIsMobileMenuOpen(false)}>About Us</Link></li>
           <li><Link to="/contact" className={`${getAnchorClasses("/contact")} block py-2`} onClick={() => setIsMobileMenuOpen(false)}>Contacts</Link></li>
           <li>

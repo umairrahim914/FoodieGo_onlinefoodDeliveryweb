@@ -9,6 +9,7 @@ import MenuPage from './pages/MenuPage';
 import CategoriesPage from './pages/CategoriesPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
+import ServicePage from './pages/ServicePage';
 import UserDashboard from './pages/UserDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 
@@ -23,6 +24,7 @@ function App() {
             <Route path="/login" element={<LoginSignup />} />
             <Route path="/login-signup" element={<LoginSignup />} />
             <Route path="/menu" element={<MenuPage />} />
+            <Route path="/service" element={<ServicePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/categories" element={<CategoriesPage />} />
