@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import productsData from '../data/products.json';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
@@ -63,12 +64,6 @@ const AdminDashboard = () => {
                 className={`menu-link ${activeSection === 'users' ? 'active' : ''}`}
               >
                 <i className="fa-solid fa-users"></i> Users
-              </button></li>
-              <li><button
-                onClick={() => handleMenuClick('analytics')}
-                className={`menu-link ${activeSection === 'analytics' ? 'active' : ''}`}
-              >
-                <i className="fa-solid fa-chart-bar"></i> Analytics
               </button></li>
               <li><button
                 onClick={() => handleMenuClick('reviews')}
@@ -137,47 +132,9 @@ const AdminDashboard = () => {
                     <i className="fa-solid fa-utensils"></i>
                   </div>
                   <div className="stat-info">
-                    <h3>89</h3>
+                    <h3>8</h3>
                     <p>Total Products</p>
                     <span className="trend neutral">+2.1%</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="dashboard-charts">
-                <div className="chart-container">
-                  <h3>Sales Overview</h3>
-                  <div className="chart-placeholder">
-                    <canvas id="salesChart"></canvas>
-                  </div>
-                </div>
-                <div className="chart-container">
-                  <h3>Popular Items</h3>
-                  <div className="popular-items">
-                    <div className="popular-item">
-                      <img src="images/burger.png" alt="Burger" />
-                      <div className="item-info">
-                        <h4>Double Beef Burger</h4>
-                        <p>142 orders</p>
-                      </div>
-                      <span className="item-revenue">$1,374</span>
-                    </div>
-                    <div className="popular-item">
-                      <img src="images/pizza.png" alt="Pizza" />
-                      <div className="item-info">
-                        <h4>Veggie Pizza</h4>
-                        <p>98 orders</p>
-                      </div>
-                      <span className="item-revenue">$1,076</span>
-                    </div>
-                    <div className="popular-item">
-                      <img src="images/fried-chicken.png" alt="Chicken" />
-                      <div className="item-info">
-                        <h4>Fried Chicken</h4>
-                        <p>87 orders</p>
-                      </div>
-                      <span className="item-revenue">$1,170</span>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -297,43 +254,96 @@ const AdminDashboard = () => {
               </div>
 
               <div className="products-grid">
-                <div className="product-admin-card">
-                  <img src="images/burger.png" alt="Burger" />
-                  <div className="product-info">
-                    <h4>Double Beef Burger</h4>
-                    <p className="product-price">$9.67</p>
-                    <p className="product-category">Burgers</p>
-                    <div className="product-status available">Available</div>
+                {productsData.map((product) => (
+                  <div key={product.id} className="product-admin-card">
+                    <img src={product.image} alt={product.name} />
+                    <div className="product-info">
+                      <h4>{product.name}</h4>
+                      <p className="product-price">{product.price}</p>
+                      <p className="product-category">Food</p>
+                      <div className="product-status available">Available</div>
+                    </div>
+                    <div className="product-actions">
+                      <button className="action-btn edit" title="Edit Product">
+                        <i className="fa-solid fa-edit"></i>
+                      </button>
+                      <button className="action-btn delete" title="Delete Product">
+                        <i className="fa-solid fa-trash"></i>
+                      </button>
+                      <button className="action-btn toggle" title="Toggle Availability">
+                        <i className="fa-solid fa-toggle-on"></i>
+                      </button>
+                    </div>
                   </div>
-                  <div className="product-actions">
-                    <button className="action-btn edit" title="Edit Product">
+                ))}
+              </div>
+            </section>
+
+            {/* Categories Section */}
+            <section id="categories" className={`content-section ${activeSection === 'categories' ? 'active' : ''}`}>
+              <div className="section-header">
+                <h2>Category Management</h2>
+                <button className="btn add-category-btn">+ Add New Category</button>
+              </div>
+
+              <div className="categories-grid">
+                <div className="category-admin-card">
+                  <div className="category-info">
+                    <h4>Burgers</h4>
+                    <p>3 products</p>
+                    <div className="category-status active">Active</div>
+                  </div>
+                  <div className="category-actions">
+                    <button className="action-btn edit" title="Edit Category">
                       <i className="fa-solid fa-edit"></i>
                     </button>
-                    <button className="action-btn delete" title="Delete Product">
+                    <button className="action-btn delete" title="Delete Category">
                       <i className="fa-solid fa-trash"></i>
-                    </button>
-                    <button className="action-btn toggle" title="Toggle Availability">
-                      <i className="fa-solid fa-toggle-on"></i>
                     </button>
                   </div>
                 </div>
-                <div className="product-admin-card">
-                  <img src="images/pizza.png" alt="Pizza" />
-                  <div className="product-info">
-                    <h4>Veggie Pizza</h4>
-                    <p className="product-price">$10.99</p>
-                    <p className="product-category">Pizza</p>
-                    <div className="product-status available">Available</div>
+                <div className="category-admin-card">
+                  <div className="category-info">
+                    <h4>Pizza</h4>
+                    <p>2 products</p>
+                    <div className="category-status active">Active</div>
                   </div>
-                  <div className="product-actions">
-                    <button className="action-btn edit" title="Edit Product">
+                  <div className="category-actions">
+                    <button className="action-btn edit" title="Edit Category">
                       <i className="fa-solid fa-edit"></i>
                     </button>
-                    <button className="action-btn delete" title="Delete Product">
+                    <button className="action-btn delete" title="Delete Category">
                       <i className="fa-solid fa-trash"></i>
                     </button>
-                    <button className="action-btn toggle" title="Toggle Availability">
-                      <i className="fa-solid fa-toggle-on"></i>
+                  </div>
+                </div>
+                <div className="category-admin-card">
+                  <div className="category-info">
+                    <h4>Chicken</h4>
+                    <p>2 products</p>
+                    <div className="category-status active">Active</div>
+                  </div>
+                  <div className="category-actions">
+                    <button className="action-btn edit" title="Edit Category">
+                      <i className="fa-solid fa-edit"></i>
+                    </button>
+                    <button className="action-btn delete" title="Delete Category">
+                      <i className="fa-solid fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+                <div className="category-admin-card">
+                  <div className="category-info">
+                    <h4>Pasta</h4>
+                    <p>1 product</p>
+                    <div className="category-status active">Active</div>
+                  </div>
+                  <div className="category-actions">
+                    <button className="action-btn edit" title="Edit Category">
+                      <i className="fa-solid fa-edit"></i>
+                    </button>
+                    <button className="action-btn delete" title="Delete Category">
+                      <i className="fa-solid fa-trash"></i>
                     </button>
                   </div>
                 </div>
@@ -382,61 +392,6 @@ const AdminDashboard = () => {
                     </tr>
                   </tbody>
                 </table>
-              </div>
-            </section>
-
-            {/* Analytics Section */}
-            <section id="analytics" className={`content-section ${activeSection === 'analytics' ? 'active' : ''}`}>
-              <div className="section-header">
-                <h2>Analytics & Reports</h2>
-                <button className="btn export-btn">Export Report</button>
-              </div>
-
-              <div className="analytics-grid">
-                <div className="analytics-card">
-                  <h3>Revenue Trends</h3>
-                  <div className="chart-placeholder">
-                    <canvas id="revenueChart"></canvas>
-                  </div>
-                </div>
-                <div className="analytics-card">
-                  <h3>Order Distribution</h3>
-                  <div className="chart-placeholder">
-                    <canvas id="orderChart"></canvas>
-                  </div>
-                </div>
-                <div className="analytics-card">
-                  <h3>Customer Growth</h3>
-                  <div className="chart-placeholder">
-                    <canvas id="customerChart"></canvas>
-                  </div>
-                </div>
-                <div className="analytics-card">
-                  <h3>Top Categories</h3>
-                  <div className="category-stats">
-                    <div className="category-item">
-                      <span className="category-name">Burgers</span>
-                      <div className="category-bar">
-                        <div className="category-fill" style={{width: '85%'}}></div>
-                      </div>
-                      <span className="category-percent">85%</span>
-                    </div>
-                    <div className="category-item">
-                      <span className="category-name">Pizza</span>
-                      <div className="category-bar">
-                        <div className="category-fill" style={{width: '72%'}}></div>
-                      </div>
-                      <span className="category-percent">72%</span>
-                    </div>
-                    <div className="category-item">
-                      <span className="category-name">Chicken</span>
-                      <div className="category-bar">
-                        <div className="category-fill" style={{width: '68%'}}></div>
-                      </div>
-                      <span className="category-percent">68%</span>
-                    </div>
-                  </div>
-                </div>
               </div>
             </section>
 

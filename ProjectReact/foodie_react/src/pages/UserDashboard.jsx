@@ -43,12 +43,6 @@ const UserDashboard = () => {
                 <i className="fa-solid fa-shopping-bag"></i> My Orders
               </button></li>
               <li><button
-                onClick={() => handleMenuClick('favorites')}
-                className={`menu-link ${activeSection === 'favorites' ? 'active' : ''}`}
-              >
-                <i className="fa-solid fa-heart"></i> Favorites
-              </button></li>
-              <li><button
                 onClick={() => handleMenuClick('profile')}
                 className={`menu-link ${activeSection === 'profile' ? 'active' : ''}`}
               >
@@ -65,12 +59,6 @@ const UserDashboard = () => {
                 className={`menu-link ${activeSection === 'payment' ? 'active' : ''}`}
               >
                 <i className="fa-solid fa-credit-card"></i> Payment Methods
-              </button></li>
-              <li><button
-                onClick={() => handleMenuClick('settings')}
-                className={`menu-link ${activeSection === 'settings' ? 'active' : ''}`}
-              >
-                <i className="fa-solid fa-gear"></i> Settings
               </button></li>
             </ul>
           </aside>
@@ -90,74 +78,16 @@ const UserDashboard = () => {
                     <p>Total Orders</p>
                   </div>
                 </div>
-                <div className="stat-card">
-                  <div className="stat-icon">
-                    <i className="fa-solid fa-heart"></i>
-                  </div>
-                  <div className="stat-info">
-                    <h3>8</h3>
-                    <p>Favorites</p>
-                  </div>
-                </div>
-                <div className="stat-card">
-                  <div className="stat-icon">
-                    <i className="fa-solid fa-dollar-sign"></i>
-                  </div>
-                  <div className="stat-info">
-                    <h3>$342</h3>
-                    <p>Total Spent</p>
-                  </div>
-                </div>
-                <div className="stat-card">
-                  <div className="stat-icon">
-                    <i className="fa-solid fa-star"></i>
-                  </div>
-                  <div className="stat-info">
-                    <h3>4.8</h3>
-                    <p>Avg Rating</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="recent-orders">
-                <h3>Recent Orders</h3>
-                <div className="order-list">
-                  <div className="order-item">
-                    <img src="images/burger.png" alt="Order" />
-                    <div className="order-details">
-                      <h4>Double Beef Burger</h4>
-                      <p>Order #12345 • Dec 28, 2024</p>
-                      <span className="status delivered">Delivered</span>
-                    </div>
-                    <div className="order-price">$9.67</div>
-                  </div>
-                  <div className="order-item">
-                    <img src="images/pizza.png" alt="Order" />
-                    <div className="order-details">
-                      <h4>Veggie Pizza</h4>
-                      <p>Order #12344 • Dec 27, 2024</p>
-                      <span className="status preparing">Preparing</span>
-                    </div>
-                    <div className="order-price">$10.99</div>
-                  </div>
-                </div>
               </div>
             </section>
 
             {/* Orders Section */}
             <section id="orders" className={`content-section ${activeSection === 'orders' ? 'active' : ''}`}>
               <h2>My Orders</h2>
-              <div className="order-filters">
-                <button className="filter-btn active">All Orders</button>
-                <button className="filter-btn">Delivered</button>
-                <button className="filter-btn">Preparing</button>
-                <button className="filter-btn">Cancelled</button>
-              </div>
               <div className="orders-grid">
                 <div className="order-card">
                   <div className="order-header">
                     <span className="order-id">#12345</span>
-                    <span className="status delivered">Delivered</span>
                   </div>
                   <div className="order-items">
                     <img src="images/burger.png" alt="Burger" />
@@ -175,33 +105,24 @@ const UserDashboard = () => {
                     <button className="btn-primary">Rate Order</button>
                   </div>
                 </div>
-              </div>
-            </section>
-
-            {/* Favorites Section */}
-            <section id="favorites" className={`content-section ${activeSection === 'favorites' ? 'active' : ''}`}>
-              <h2>My Favorites</h2>
-              <div className="favorites-grid">
-                <div className="favorite-item">
-                  <img src="images/burger.png" alt="Burger" />
-                  <div className="favorite-info">
-                    <h4>Double Beef Burger</h4>
-                    <p className="price">$9.67</p>
-                    <div className="favorite-actions">
-                      <button className="btn">Add to Cart</button>
-                      <button className="remove-favorite"><i className="fa-solid fa-heart-crack"></i></button>
+                <div className="order-card">
+                  <div className="order-header">
+                    <span className="order-id">#12344</span>
+                  </div>
+                  <div className="order-items">
+                    <img src="images/pizza.png" alt="Pizza" />
+                    <div className="item-details">
+                      <h4>Veggie Pizza</h4>
+                      <p>Quantity: 1</p>
                     </div>
                   </div>
-                </div>
-                <div className="favorite-item">
-                  <img src="images/pizza.png" alt="Pizza" />
-                  <div className="favorite-info">
-                    <h4>Veggie Pizza</h4>
-                    <p className="price">$10.99</p>
-                    <div className="favorite-actions">
-                      <button className="btn">Add to Cart</button>
-                      <button className="remove-favorite"><i className="fa-solid fa-heart-crack"></i></button>
-                    </div>
+                  <div className="order-footer">
+                    <span className="order-date">Dec 27, 2024</span>
+                    <span className="order-total">$10.99</span>
+                  </div>
+                  <div className="order-actions">
+                    <button className="btn-secondary">Reorder</button>
+                    <button className="btn-primary">Rate Order</button>
                   </div>
                 </div>
               </div>
@@ -282,49 +203,6 @@ const UserDashboard = () => {
                   <div className="card-actions">
                     <button className="edit-btn">Edit</button>
                     <button className="delete-btn">Remove</button>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* Settings Section */}
-            <section id="settings" className={`content-section ${activeSection === 'settings' ? 'active' : ''}`}>
-              <h2>Settings</h2>
-              <div className="settings-groups">
-                <div className="settings-group">
-                  <h3>Notifications</h3>
-                  <div className="setting-item">
-                    <label className="switch">
-                      <input type="checkbox" defaultChecked />
-                      <span className="slider"></span>
-                    </label>
-                    <div className="setting-info">
-                      <h4>Order Updates</h4>
-                      <p>Get notified about your order status</p>
-                    </div>
-                  </div>
-                  <div className="setting-item">
-                    <label className="switch">
-                      <input type="checkbox" />
-                      <span className="slider"></span>
-                    </label>
-                    <div className="setting-info">
-                      <h4>Promotional Offers</h4>
-                      <p>Receive deals and special offers</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="settings-group">
-                  <h3>Privacy</h3>
-                  <div className="setting-item">
-                    <label className="switch">
-                      <input type="checkbox" defaultChecked />
-                      <span className="slider"></span>
-                    </label>
-                    <div className="setting-info">
-                      <h4>Location Services</h4>
-                      <p>Allow location access for better delivery</p>
-                    </div>
                   </div>
                 </div>
               </div>
