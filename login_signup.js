@@ -1,37 +1,30 @@
-let loginBtn = document.getElementById("loginBtn");
-let regBtn = document.getElementById("registerBtn");
-let loginForm = document.getElementById("login");
-let regForm = document.getElementById("register");
+document.getElementById('registerBtn').addEventListener('click', () => {
+  const firstName = document.querySelector('#register input[placeholder="Firstname"]').value;
+  const lastName = document.querySelector('#register input[placeholder="Lastname"]').value;
+  const username = document.querySelector('#register input[placeholder="Username"]').value;
+  const email = document.querySelector('#register input[placeholder="Email"]').value;
+  const password = document.querySelector('#register input[placeholder="Password"]').value;
+  const confirmPassword = document.querySelector('#register input[placeholder="Confirm Password"]').value;
 
-// Initially show login, hide register
-loginForm.style.left = "4px";
-loginForm.style.opacity = "1";
-loginForm.style.zIndex = "2";
+console.log({ firstName, lastName, username, email, password });
+  if (!firstName || !email || !password) {
+    alert('Fill required fields');
+    return;
+  }
 
-regForm.style.right = "-520px";
-regForm.style.opacity = "0";
-regForm.style.zIndex = "1";
 
-function login() {
-    // Slide login into view
-    loginForm.style.left = "4px";
-    loginForm.style.opacity = "1";
-    loginForm.style.zIndex = "2";
+  if (password !== confirmPassword) {
+    alert('Passwords do not match');
+    return;
+  }
 
-    // Slide register out
-    regForm.style.right = "-520px";
-    regForm.style.opacity = "0";
-    regForm.style.zIndex = "1";
-}
+  fetch('http://localhost:3000/api/signup', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ firstName, lastName, username, email, password })
+  })
 
-function register() {
-    // Slide register into view
-    regForm.style.right = "5px";
-    regForm.style.opacity = "1";
-    regForm.style.zIndex = "2";
-
-    // Slide login out
-    loginForm.style.left = "-510px";
-    loginForm.style.opacity = "0";
-    loginForm.style.zIndex = "1";
-}
+  .then(res => res.json())
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+});

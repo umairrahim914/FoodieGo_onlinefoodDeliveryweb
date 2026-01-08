@@ -1,25 +1,26 @@
-// server.js
 const express = require('express');
 const connectDB = require('./db.js');
+const User = require('./User.js');
+const app = express();
 
-const app = express(); // <--- Moved here
-app.use(express.json()); // <--- Add this
+app.use(express.json());
 
+app.get('/api/test', (req, res) => {
+  res.send('API test successful!');
+});
 
-app.post('/api/login', async (req, res) => {
-  const { email, password } = req.body;
-  const db = await connectDB();
-  const user = await db.collection('users').findOne({ email });
-  if (user && user.password === password) {
-    res.json({ token: 'your-token' });
-  } else {
-    res.status(401).json({ error: 'Invalid creds' });
+app.post('/api/signup', async (req, res) => {
+  try {
+    const user = new User(req.body);
+    await user.save();
+    res.send({ message: 'User created' });
+  } catch (err) {
+    res.status(400).send({ error: err.message });
   }
 });
 
-connectDB().then((db) => {
+connectDB().then(() => {
   app.listen(3000, () => {
     console.log('Server running on port 3000');
-    // Use db for routes
   });
-});
+})

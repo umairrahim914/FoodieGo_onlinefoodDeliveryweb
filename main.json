@@ -1,20 +1,5 @@
-[
   {
-    "id": 1,
-    "name": "Double Beef Burger",
-    "price": "$200",
-    "image": "images/burger.png"
-  },
-  {
-    "id": 2,
-    "name": "Chicken Pizza",
-    "price": "$350",
-    "image": "images/pizza.png"
-  },
-  {
-    "id": 3,
-    "name": "French Fries",
-    "price": "$120",
-    "image": "images/fries.png"
-  }
-]
+       "name": "John",
+       "email": "john@example.com",
+       "password": "123456"
+     }

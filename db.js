@@ -1,15 +1,12 @@
-// db.js
-const { MongoClient } = require('mongodb');
-const url = 'mongodb://localhost:27017/';
-const dbName = 'proMongo';
+const mongoose = require('mongoose');
+const url = 'mongodb://127.0.0.1:27017/proMongo';
 
 const connectDB = async () => {
   try {
-    const client = await MongoClient.connect(url);
+    await mongoose.connect(url);
     console.log('Connected to MongoDB');
-    return client.db(dbName);
   } catch (err) {
-    console.error(err);
+    console.error('DB Error:', err);
   }
 };
 
