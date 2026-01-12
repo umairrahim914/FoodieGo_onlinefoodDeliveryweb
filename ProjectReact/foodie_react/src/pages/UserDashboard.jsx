@@ -100,10 +100,6 @@ const UserDashboard = () => {
                     <span className="order-date">Dec 28, 2024</span>
                     <span className="order-total">$19.34</span>
                   </div>
-                  <div className="order-actions">
-                    <button className="btn-secondary">Reorder</button>
-                    <button className="btn-primary">Rate Order</button>
-                  </div>
                 </div>
                 <div className="order-card">
                   <div className="order-header">
@@ -120,10 +116,7 @@ const UserDashboard = () => {
                     <span className="order-date">Dec 27, 2024</span>
                     <span className="order-total">$10.99</span>
                   </div>
-                  <div className="order-actions">
-                    <button className="btn-secondary">Reorder</button>
-                    <button className="btn-primary">Rate Order</button>
-                  </div>
+                  
                 </div>
               </div>
             </section>

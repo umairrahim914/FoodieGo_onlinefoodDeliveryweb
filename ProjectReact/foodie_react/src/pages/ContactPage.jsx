@@ -27,7 +27,7 @@ const ContactPage = () => {
                 <i className="fas fa-phone"></i>
               </div>
               <h3>Head Office</h3>
-              <p className="phone-number">021-5877976</p>
+              <p className="phone-number">0334-9414914</p>
               
               <div className="contact-icon location-icon">
                 <i className="fas fa-map-marker-alt"></i>
@@ -46,7 +46,7 @@ const ContactPage = () => {
                 <i className="fas fa-phone"></i>
               </div>
               <h3>Regional Office Lahore</h3>
-              <p className="phone-number">042-35884570</p>
+              <p className="phone-number">0333-3333333</p>
               
               <div className="contact-icon location-icon">
                 <i className="fas fa-map-marker-alt"></i>
@@ -64,7 +64,7 @@ const ContactPage = () => {
                 <i className="fas fa-phone"></i>
               </div>
               <h3>Regional Office Islamabad</h3>
-              <p className="phone-number">0512726877</p>
+              <p className="phone-number">0300-1234567</p>
               
               <div className="contact-icon location-icon">
                 <i className="fas fa-map-marker-alt"></i>

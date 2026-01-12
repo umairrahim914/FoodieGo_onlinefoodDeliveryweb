@@ -113,11 +113,9 @@ const LoginSignup = () => {
 
           <div className="two-col">
             <div className="one">
-              <input type="checkbox" id="login-check" />
-              <label htmlFor="login-check">Remember Me</label>
+              
             </div>
             <div className="two">
-              <label><a href="#">Forget Password?</a></label>
             </div>
           </div>
 
@@ -210,7 +208,7 @@ const LoginSignup = () => {
                 <a href="#" onClick={login}>Login</a>
               </span>
               <div className="two">
-                <label><a href="#">Terms & Conditions</a></label>
+                
               </div>
             </div>
           </div>

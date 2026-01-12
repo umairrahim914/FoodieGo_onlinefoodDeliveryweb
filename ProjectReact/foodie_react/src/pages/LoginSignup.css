@@ -132,17 +132,17 @@
 
 #reg-acc-span {
     position: relative;
-    left: 120px;
+    left: 40px;
     display: flex;
     justify-content: center;
-    color: red;
+    color: black;
     font-size: 14px;
     margin-top: 0px;
 }
 
 #reg-acc-span a {
     font-weight: 500;
-    color: #fff;
+    color: black;
     margin-left: 5px;
 }
 
@@ -201,8 +201,12 @@ header {
 }
 
 .input-field::placeholder {
+    position: relative;
     color: black;
 }
+
+
+
 
 .input-box i {
     position: relative;

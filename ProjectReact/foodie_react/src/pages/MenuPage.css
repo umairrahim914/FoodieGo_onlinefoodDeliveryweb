@@ -16,14 +16,26 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.menu-page .navbar .logo,
-.menu-page .navbar a,
-.menu-page .navbar button {
+.menu-page .navbar .logo {
+  color: var(--lead) !important;
+}
+
+.menu-page .navbar .nav-link {
   color: var(--lead) !important;
 }
 
 .menu-page .navbar .cart-icon {
   color: var(--lead) !important;
+}
+
+/* Allow dashboard buttons to keep their original styling */
+.menu-page .navbar .btn-custom {
+  color: var(--lead);
+}
+
+.menu-page .navbar .btn-custom:hover {
+  background: var(--lead) !important;
+  color: white !important;
 }
 
 /* Hero Section */

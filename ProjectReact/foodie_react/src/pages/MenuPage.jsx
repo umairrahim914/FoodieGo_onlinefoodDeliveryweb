@@ -6,6 +6,7 @@ import CartSidebar from '../components/CartSidebar';
 import productsData from '../data/products.json';
 import './MenuPage.css';
 
+
 const MenuPage = () => {
   const [products, setProducts] = useState([]);
 
