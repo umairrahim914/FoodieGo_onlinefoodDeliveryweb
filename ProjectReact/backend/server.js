@@ -1,24 +1,24 @@
 const express = require("express")
 require("dotenv").config()
 
-const connectDB = require("./config/db")
+const connectDB = require("./config/db");
 
-const userRoutes = require("./routes/userRoutes")
-const adminRoutes = require("./routes/adminRoutes")
-const productRoutes = require("./routes/productRoutes")
+const userRoutes = require("./routes/userRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+const productRoutes = require("./routes/productRoutes");
 
-const app = express()
-app.use(express.json())
+const app = express();
+app.use(express.json());
 
-connectDB()
+connectDB();
 
 app.get("/", (req, res) => {
-  res.send("FoodieGo Server is running")
+  res.send("FoodieGo Server is running");
 })
 
-app.use("/users", userRoutes)
-app.use("/admin", adminRoutes)
-app.use("/products", productRoutes)
+app.use("/users", userRoutes);
+app.use("/admin", adminRoutes);
+app.use("/products", productRoutes);
 
 const PORT = process.env.PORT || 5000
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
