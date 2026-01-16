@@ -69,12 +69,7 @@ const Navigation = () => {
             User Dashboard &nbsp; <i className="fa-solid fa-user"></i>
           </Link>
 
-          <Link
-            to="/admin-dashboard"
-            className="btn-custom no-underline mr-2"
-          >
-            Admin Panel &nbsp; <i className="fa-solid fa-cog"></i>
-          </Link>
+      
 
           {/* Login Button */}
           <Link
