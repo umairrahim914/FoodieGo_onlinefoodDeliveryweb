@@ -7,6 +7,13 @@ const LoginSignup = () => {
   const loginFormRef = useRef(null);
   const registerFormRef = useRef(null);
 
+  // Function to block home access
+const handleHomeClick = (e) => {
+  e.preventDefault(); // Stop the link
+  alert('Please login first!'); // Show alert
+};
+
+
   const login = () => {
     setIsLogin(true);
     if (loginFormRef.current && registerFormRef.current) {
@@ -31,6 +38,8 @@ const LoginSignup = () => {
     }
   }, []);
 
+  
+
   return (
     <div className="login-wrapper">
       
@@ -48,9 +57,8 @@ const LoginSignup = () => {
               </a>
             </li>
             <li>
-              <Link to="/" className="link">
-                Home
-              </Link>
+              <a href="#" onClick={handleHomeClick} className="link">Home</a>
+
             </li>
           </ul>
         </div>

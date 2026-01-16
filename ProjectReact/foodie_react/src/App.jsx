@@ -4,9 +4,7 @@ import { CartProvider } from './context/CartContext';
 import './main.css';
 import MainPage from './pages/MainPage';
 import LoginSignup from './pages/LoginSignup';
-import HomePage from './pages/HomePage';
 import MenuPage from './pages/MenuPage';
-import CategoriesPage from './pages/CategoriesPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import ServicePage from './pages/ServicePage';
@@ -20,14 +18,13 @@ function App() {
         <div className="App">
           <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="/home" element={<HomePage />} />
+            <Route path="/home" element={<MainPage />} />
             <Route path="/login" element={<LoginSignup />} />
             <Route path="/login-signup" element={<LoginSignup />} />
             <Route path="/menu" element={<MenuPage />} />
             <Route path="/service" element={<ServicePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
-            <Route path="/categories" element={<CategoriesPage />} />
             <Route path="/user-dashboard" element={<UserDashboard />} />
             <Route path="/admin-dashboard" element={<AdminDashboard />} />
           </Routes>
