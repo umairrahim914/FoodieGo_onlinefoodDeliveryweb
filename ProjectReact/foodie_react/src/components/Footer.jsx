@@ -35,18 +35,13 @@ const Footer = () => {
               <h4 className="text-lg font-semibold text-[var(--lead)]">Our Menu</h4>
             </li>
             <li className="mt-one-half">
-              <a href="#" className="footer-link text-gray-600 text-lg hover:text-[var(--lead)] transition-colors no-underline">
+              <a href="/menu" className="footer-link text-gray-600 text-lg hover:text-[var(--lead)] transition-colors no-underline">
                 Special
               </a>
             </li>
             <li className="mt-one-half">
-              <a href="#" className="footer-link text-gray-600 text-lg hover:text-[var(--lead)] transition-colors no-underline">
+              <a href="/menu" className="footer-link text-gray-600 text-lg hover:text-[var(--lead)] transition-colors no-underline">
                 Popular
-              </a>
-            </li>
-            <li className="mt-one-half">
-              <a href="#" className="footer-link text-gray-600 text-lg hover:text-[var(--lead)] transition-colors no-underline">
-                Category
               </a>
             </li>
           </ul>
@@ -57,23 +52,18 @@ const Footer = () => {
               <h4 className="text-lg font-semibold text-[var(--lead)]">Company</h4>
             </li>
             <li className="mt-one-half">
-              <a href="#" className="footer-link text-gray-600 text-lg hover:text-[var(--lead)] transition-colors no-underline">
+              <a href="/service" className="footer-link text-gray-600 text-lg hover:text-[var(--lead)] transition-colors no-underline">
                 Why FoodieGo
               </a>
             </li>
             <li className="mt-one-half">
-              <a href="#" className="footer-link text-gray-600 text-lg hover:text-[var(--lead)] transition-colors no-underline">
+              <a href="/contact" className="footer-link text-gray-600 text-lg hover:text-[var(--lead)] transition-colors no-underline">
                 Partner with us
               </a>
             </li>
             <li className="mt-one-half">
-              <a href="#" className="footer-link text-gray-600 text-lg hover:text-[var(--lead)] transition-colors no-underline">
+              <a href="/about" className="footer-link text-gray-600 text-lg hover:text-[var(--lead)] transition-colors no-underline">
                 About
-              </a>
-            </li>
-            <li className="mt-one-half">
-              <a href="#" className="footer-link text-gray-600 text-lg hover:text-[var(--lead)] transition-colors no-underline">
-                FAQ's
               </a>
             </li>
           </ul>
@@ -84,22 +74,14 @@ const Footer = () => {
               <h4 className="text-lg font-semibold text-[var(--lead)]">Support</h4>
             </li>
             <li className="mt-one-half">
-              <a href="#" className="footer-link text-gray-600 text-lg hover:text-[var(--lead)] transition-colors no-underline">
-                Account
-              </a>
             </li>
             <li className="mt-one-half">
-              <a href="#" className="footer-link text-gray-600 text-lg hover:text-[var(--lead)] transition-colors no-underline">
-                Support Center
-              </a>
-            </li>
-            <li className="mt-one-half">
-              <a href="#" className="footer-link text-gray-600 text-lg hover:text-[var(--lead)] transition-colors no-underline">
+              <a href="/contact" className="footer-link text-gray-600 text-lg hover:text-[var(--lead)] transition-colors no-underline">
                 Feedback
               </a>
             </li>
             <li className="mt-one-half">
-              <a href="#" className="footer-link text-gray-600 text-lg hover:text-[var(--lead)] transition-colors no-underline">
+              <a href="/contact" className="footer-link text-gray-600 text-lg hover:text-[var(--lead)] transition-colors no-underline">
                 Contacts
               </a>
             </li>

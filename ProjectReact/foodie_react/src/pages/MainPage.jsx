@@ -25,7 +25,7 @@ const MainPage = () => {
             </div>
             
             <div className="content">
-              <h5 className="section-title text-left mb-4">Our Application</h5>
+              <h5 className="section-title text-left mb-4">Order and Enjoy</h5>
               <h2 className="section-heading text-left mb-6">
                 Simple Way To <br />
                 Order Your Food
@@ -34,8 +34,8 @@ const MainPage = () => {
                 Discover food wherever and whenever<br />
                 and get your food delivery quickly.
               </p>
-              <a href="#" className="btn-custom">
-                Get the app
+              <a href="/menu" className="btn-custom mt-2 ">
+                Order Now
               </a>
             </div>
           </div>
