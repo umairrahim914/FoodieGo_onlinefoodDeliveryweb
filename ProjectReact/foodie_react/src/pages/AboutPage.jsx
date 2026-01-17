@@ -50,7 +50,7 @@ const AboutPage = () => {
               </h2>
             </div>
             <p className="mission-text">
-              is FoodieGo's pledge to give back to society. Over the years we have made it our mission to spread the message of hope, bringing positive 
+              It's FoodieGo's pledge to give back to society. Over the years we have made it our mission to spread the message of hope, bringing positive 
               change in the lives of people and providing better living standards. FoodieGo strengthens the community on the pillars of 
               Education, Inclusion & Diversity.
             </p>
@@ -67,9 +67,9 @@ const AboutPage = () => {
               <div className="fact-icon">
                 <i className="fas fa-calendar-alt"></i>
               </div>
-              <div className="fact-number">2020</div>
+              <div className="fact-number">2025</div>
               <div className="fact-description">
-                The first FoodieGo service launched in 2020 and was located in the heart of the city
+                The first FoodieGo service launched in 2025 and was located in the heart of the city
               </div>
             </div>
             
