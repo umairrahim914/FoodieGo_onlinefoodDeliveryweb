@@ -107,7 +107,7 @@ const AboutPage = () => {
       </section>
 
       {/* Values Section */}
-      <section className="values-section">
+      <section className="values-section mt-6">
         <div className="wrapper">
           <h2 className="values-title">Our Values</h2>
           <div className="values-grid">

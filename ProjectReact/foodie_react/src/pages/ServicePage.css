@@ -5,6 +5,16 @@
   color: var(--lead);
 }
 
+/* Dashboard buttons  */
+.service-page .navbar .btn-custom {
+  color: var(--lead);
+}
+
+.service-page .navbar .btn-custom:hover {
+  background: var(--lead) !important;
+  color: white !important;
+}
+
 /* Navigation styling for Service page */
 .service-page .navbar {
   background: white;
