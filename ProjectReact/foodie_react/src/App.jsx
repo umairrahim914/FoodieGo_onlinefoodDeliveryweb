@@ -10,6 +10,7 @@ import ContactPage from './pages/ContactPage';
 import ServicePage from './pages/ServicePage';
 import UserDashboard from './pages/UserDashboard';
 import AdminDashboard from './pages/AdminDashboard';
+import CheckoutPage from './pages/CheckoutPage';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/user-dashboard" element={<UserDashboard />} />
             <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
           </Routes>
         </div>
       </Router>

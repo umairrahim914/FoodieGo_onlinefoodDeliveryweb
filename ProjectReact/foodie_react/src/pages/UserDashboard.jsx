@@ -54,12 +54,6 @@ const UserDashboard = () => {
               >
                 <i className="fa-solid fa-location-dot"></i> Addresses
               </button></li>
-              <li><button
-                onClick={() => handleMenuClick('payment')}
-                className={`menu-link ${activeSection === 'payment' ? 'active' : ''}`}
-              >
-                <i className="fa-solid fa-credit-card"></i> Payment Methods
-              </button></li>
             </ul>
           </aside>
 
@@ -175,27 +169,6 @@ const UserDashboard = () => {
                   <div className="address-actions">
                     <button className="edit-btn">Edit</button>
                     <button className="delete-btn">Delete</button>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* Payment Methods Section */}
-            <section id="payment" className={`content-section ${activeSection === 'payment' ? 'active' : ''}`}>
-              <h2>Payment Methods</h2>
-              <button className="btn add-payment-btn">+ Add Payment Method</button>
-              <div className="payment-methods">
-                <div className="payment-card">
-                  <div className="card-info">
-                    <i className="fa-brands fa-cc-visa"></i>
-                    <div className="card-details">
-                      <h4>Visa ending in 1234</h4>
-                      <p>Expires 12/25</p>
-                    </div>
-                  </div>
-                  <div className="card-actions">
-                    <button className="edit-btn">Edit</button>
-                    <button className="delete-btn">Remove</button>
                   </div>
                 </div>
               </div>

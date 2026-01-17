@@ -1,5 +1,6 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
+import { Link } from 'react-router-dom';
 import CartItem from './CartItem';
 
 const CartSidebar = () => {
@@ -37,9 +38,13 @@ const CartSidebar = () => {
         >
           Close
         </a>
-        <a href="#" className="btn">
-          Check out
-        </a>
+        <Link 
+         to="/checkout" 
+         className="btn"
+         onClick={() => setIsCartOpen(false)}
+         >
+    Check out
+  </Link>
       </div>
     </div>
   );
