@@ -54,8 +54,10 @@
     border-bottom: 2px solid black;
 }
 
+
+
 .nav-button .btn {
-    width: 105px;
+    min-width: 120px;
     height: 40px;
     font-weight: 500;
     background: linear-gradient(135deg, #ffecb3, #e6c200);
@@ -64,6 +66,9 @@
     border-radius: 40px;
     cursor: pointer;
     transition: .3s ease;
+    padding: 0 15px;
+    font-size: 14px; 
+    
 }
 
 #registerBtn {
@@ -177,6 +182,19 @@ header {
     gap: 10px;
 }
 
+.input-field::-webkit-outer-spin-button,
+.input-field::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-field:-webkit-autofill,
+.input-field:-webkit-autofill:hover,
+.input-field:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 30px rgba(255, 255, 255, 0.2) inset !important;
+    -webkit-text-fill-color: black !important;
+}
+
 .other-fields {
     display: flex;
     flex-direction: column;
@@ -186,23 +204,30 @@ header {
 .input-field {
     font-size: 15px;
     background: rgba(255, 255, 255, 0.2);
-    color: black;
+    color: black !important;
     height: 38px;
     width: 100%;
-    padding: 0 10px 0 45px;
+    padding: 0 15px 0 45px;
     border: none;
     border-radius: 30px;
-    outline: none;
+    outline: none !important;
     transition: .2s ease;
+    box-shadow: none !important; 
+    display: block !important;
+    opacity: 1 !important;
 }
 
 .input-field:hover, .input-field:focus {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.25) !important;
+    border: none !important; 
+    outline: none;  
+    box-shadow: none; 
 }
 
 .input-field::placeholder {
-    position: relative;
-    color: black;
+    
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 15px;   
 }
 
 .input-box i{
@@ -210,14 +235,16 @@ header {
     top: 50%;               /* CHANGE: Center vertically */
     left: 15px;
     transform: translateY(-50%);  /* ADD: Perfect centering */
-    color: rgba(0, 0, 0, 0.7);   /* ADD: Icon color */
+    color: rgba(0, 0, 0, 0.6);   /* ADD: Icon color */
     font-size: 16px;             /* ADD: Icon size */
     pointer-events: none;        /* ADD: Don't block input clicks */
+    z-index: 2;
 }
 
 .input-box {
     position: relative;  /* ADD: Make container relative */
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    width: 100%;
 }
 
 .submit {
