@@ -13,7 +13,7 @@ const HeroSection = () => {
               We will fill your tummy with delicious<br />
               food and fast delivery.
             </p>
-            <div className="flex gap-2 items-center">
+            <div className="flex gap-2 items-center mt-2">
               <a href="#menu" className="btn-custom no-underline">Order now</a>
               <a href="#" className="social-icon no-underline">
                 <i className="fa-brands fa-twitter"></i>

@@ -13,7 +13,7 @@ const MainPage = () => {
       <ReviewsCarousel />
       
       {/* Mobile App Promotion Section - Exact match to original */}
-      <section className="py-20">
+      <section className="py-20 mt-4">
         <div className="wrapper">
           <div className="app-container flex items-center justify-between">
             <div className="image-container">
@@ -46,7 +46,7 @@ const MainPage = () => {
       <section className="py-20">
         <div className="wrapper">
           <div className="text-center">
-            <h5 className="section-title">Our Subscribe</h5>
+            <h5 className="section-title mt-4" >Our Subscribe</h5>
             <h2 className="section-heading">Subscribe To Our Newsletter</h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-16 leading-relaxed">
               We recommend you to subscribe our newspaper, drop your email below to get daily update about us.
