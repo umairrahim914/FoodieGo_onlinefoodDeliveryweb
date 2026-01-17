@@ -205,10 +205,19 @@ header {
     color: black;
 }
 
-.input-box i {
-    position: relative;
-    top: -25px;
+.input-box i{
+    position: absolute;      /* CHANGE: From relative to absolute */
+    top: 50%;               /* CHANGE: Center vertically */
     left: 15px;
+    transform: translateY(-50%);  /* ADD: Perfect centering */
+    color: rgba(0, 0, 0, 0.7);   /* ADD: Icon color */
+    font-size: 16px;             /* ADD: Icon size */
+    pointer-events: none;        /* ADD: Don't block input clicks */
+}
+
+.input-box {
+    position: relative;  /* ADD: Make container relative */
+    margin-bottom: 10px;
 }
 
 .submit {
