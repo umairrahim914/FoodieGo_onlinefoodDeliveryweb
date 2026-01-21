@@ -688,6 +688,140 @@ input:checked + .slider:before {
     transform: translateX(26px);
 }
 
+/* Loading and No Orders Messages */
+.loading-message,
+.no-orders-message {
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+}
+
+.no-orders-message .btn {
+  margin-top: 1rem;
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background: var(--gold-finger);
+  color: var(--lead);
+  text-decoration: none;
+  border-radius: 0.5rem;
+  font-weight: bold;
+}
+
+/* Order Status Styling */
+.order-status {
+  padding: 0.3rem 0.8rem;
+  border-radius: 1rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.status-pending {
+  background: #ffeaa7;
+  color: #d63031;
+}
+
+.status-preparing {
+  background: #74b9ff;
+  color: #0984e3;
+}
+
+.status-delivered {
+  background: #00b894;
+  color: #00a085;
+}
+
+.status-cancelled {
+  background: #fd79a8;
+  color: #e84393;
+}
+
+/* Order Items Styling */
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+.order-item img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.order-item .item-details h4 {
+  margin: 0 0 0.3rem 0;
+  font-size: 1rem;
+  color: var(--lead);
+}
+
+.order-item .item-details p {
+  margin: 0.2rem 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.order-item .item-price {
+  color: darkred;
+  font-weight: bold;
+}
+
+/* Order Footer Styling */
+.order-footer {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.order-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.order-date {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.order-total {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: darkred;
+}
+
+.delivery-info p {
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.delivery-info strong {
+  color: var(--lead);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .order-item {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .order-info {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+
 /* Responsive Design */
 @media screen and (max-width: 768px) {
     .dashboard-main .wrapper {

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
+import orderService from '../services/orderService';
 import './CheckoutPage.css';
 
 const CheckoutPage = () => {
@@ -18,17 +19,55 @@ const CheckoutPage = () => {
     }
   }, [cartItems, navigate, orderPlaced]);
 
-  // FUNCTION: Handle order placement
   const handlePlaceOrder = async () => {
-    setLoading(true);
+  setLoading(true);
+  
+  try {
+    // Get delivery info from form
+    const deliveryInfo = {
+      name: document.querySelector('input[placeholder="Your Name"]').value,
+      phone: document.querySelector('input[placeholder="Phone Number"]').value,
+      address: document.querySelector('textarea[placeholder="Delivery Address"]').value
+    };
     
-    // SIMULATE: Order processing (2 seconds)
-    setTimeout(() => {
-      setOrderPlaced(true);
-      clearCart(); // Clear the cart after successful order
+    // Validate delivery info
+    if (!deliveryInfo.name || !deliveryInfo.phone || !deliveryInfo.address) {
+      alert('Please fill all delivery information');
       setLoading(false);
-    }, 2000);
-  };
+      return;
+    }
+    
+    // Prepare order data
+    const orderData = {
+      items: cartItems.map(item => ({
+        productId: item.id,
+        name: item.name,
+        price: parseFloat(item.price.replace('$', '')),
+        quantity: item.quantity,
+        image: item.image
+      })),
+      deliveryInfo,
+      totalAmount: parseFloat(getTotalPrice())
+    };
+    
+    // Place order
+    const result = await orderService.placeOrder(orderData);
+    
+    if (result.success) {
+      setOrderPlaced(true);
+      clearCart(); // Clear cart after successful order
+    } else {
+      alert(result.message);
+    }
+    
+  } catch (error) {
+    alert('Failed to place order. Please try again.');
+    console.error('Order error:', error);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   // SUCCESS: Order placed successfully
   if (orderPlaced) {
