@@ -69,16 +69,6 @@ const Navigation = () => {
             User Dashboard &nbsp; <i className="fa-solid fa-user"></i>
           </Link>
 
-      
-
-          {/* Login Button */}
-          <Link
-            to="/login"
-            className="btn-custom no-underline"
-          >
-            Login &nbsp; <i className="fa-solid fa-arrow-right-from-bracket"></i>
-          </Link>
-
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMobileMenu}
@@ -111,15 +101,6 @@ const Navigation = () => {
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Admin Panel &nbsp; <i className="fa-solid fa-cog"></i>
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/login"
-              className="btn-custom no-underline"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Login &nbsp; <i className="fa-solid fa-arrow-right-from-bracket"></i>
             </Link>
           </li>
         </ul>

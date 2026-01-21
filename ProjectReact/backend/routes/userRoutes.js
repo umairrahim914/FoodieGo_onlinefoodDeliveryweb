@@ -10,10 +10,24 @@ router.post("/", async (req, res) => {
   res.status(201).json(savedUser)
 })
 
-// Get all users
+// Get all users (exclude admin users)
 router.get("/", async (req, res) => {
-  const users = await User.find()
-  res.json(users)
+  try {
+    const users = await User.find({ role: { $ne: 'admin' } }) // Exclude admin users
+    res.json(users)
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message })
+  }
+})
+
+// Get all users including admins (for admin dashboard)
+router.get("/all", async (req, res) => {
+  try {
+    const users = await User.find() // Get all users including admins
+    res.json(users)
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message })
+  }
 })
 
 // Get user by id

@@ -101,12 +101,65 @@ router.post("/login", async (req, res) => {
         firstName: user.firstName,
         lastName: user.lastName,
         username: user.username,
-        email: user.email
+        email: user.email,
+        role: user.role  // Include role in response
       }
     })
 
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message })
+  }
+})
+
+// CREATE ADMIN ROUTE: Creates admin user (for setup purposes)
+router.post("/create-admin", async (req, res) => {
+  try {
+    // EXTRACT: Data from request body
+    const { firstName, lastName, username, email, password } = req.body
+
+    // CHECK: If user already exists with same email or username
+    const existingUser = await User.findOne({ 
+      $or: [{ email }, { username }] 
+    })
+    
+    if (existingUser) {
+      return res.status(400).json({ 
+        message: "User with this email or username already exists" 
+      })
+    }
+
+    // ENCRYPT: Password before saving (security)
+    const saltRounds = 10
+    const hashedPassword = await bcrypt.hash(password, saltRounds)
+
+    // CREATE: New admin user object
+    const adminUser = new User({
+      firstName,
+      lastName,
+      username,
+      email,
+      password: hashedPassword,
+      role: 'admin'  // Set role as admin
+    })
+
+    // SAVE: Admin user to MongoDB database
+    const savedAdmin = await adminUser.save()
+
+    // SEND: Success response (don't send password back)
+    res.status(201).json({
+      message: "Admin user created successfully",
+      user: {
+        id: savedAdmin._id,
+        firstName: savedAdmin.firstName,
+        lastName: savedAdmin.lastName,
+        username: savedAdmin.username,
+        email: savedAdmin.email,
+        role: savedAdmin.role
+      }
+    })
+
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 })
 

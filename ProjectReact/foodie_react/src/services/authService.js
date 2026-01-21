@@ -7,6 +7,13 @@ const authService = {
   register: async (userData) => {
     try {
       const response = await api.post('/auth/register', userData);
+      
+      // Store token and user data in localStorage
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+      }
+      
       return {
         success: true,
         data: response.data,
@@ -24,6 +31,13 @@ const authService = {
   login: async (credentials) => {
     try {
       const response = await api.post('/auth/login', credentials);
+      
+      // Store token and user data in localStorage
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+      }
+      
       return {
         success: true,
         data: response.data,

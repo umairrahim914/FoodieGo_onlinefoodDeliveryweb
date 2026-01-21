@@ -850,3 +850,117 @@
         grid-template-columns: 1fr;
     }
 }
+/* Additional styles for dynamic orders */
+.loading-message, .no-orders-message {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.status-select {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  background: white;
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+
+.status-select:focus {
+  outline: none;
+  border-color: #ff6b35;
+}
+
+/* Admin login styles */
+.admin-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.admin-login-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.admin-login-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.admin-login-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.admin-login-container input {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.admin-login-container button {
+  padding: 0.75rem;
+  background: #ff6b35;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.admin-login-container button:hover {
+  background: #e55a2b;
+}
+
+.admin-login-container button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* Order items styling in table */
+.orders-table td > div {
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.orders-table td > div:last-child {
+  margin-bottom: 0;
+}
+/* Users section styles */
+.no-users-message {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+/* Delivery address styling in orders table */
+.delivery-address {
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.delivery-address div {
+  margin-bottom: 0.25rem;
+}
+
+.delivery-address div:last-child {
+  margin-bottom: 0;
+}
+
+/* Adjust table column widths for better layout */
+.orders-table th:nth-child(6), 
+.orders-table td:nth-child(6) {
+  min-width: 180px;
+  max-width: 200px;
+}

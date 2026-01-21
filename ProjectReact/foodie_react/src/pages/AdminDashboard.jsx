@@ -1,14 +1,132 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import orderService from '../services/orderService';
+import AdminProtectedRoute from '../components/AdminProtectedRoute';
 import productsData from '../data/products.json';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
   const [activeSection, setActiveSection] = useState('dashboard');
+  const [orders, setOrders] = useState([]);
+  const [loadingOrders, setLoadingOrders] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [loadingUsers, setLoadingUsers] = useState(false);
 
   const handleMenuClick = (sectionId) => {
     setActiveSection(sectionId);
   };
+
+  useEffect(() => {
+  if (activeSection === 'orders') {
+    fetchAllOrders();
+  } else if (activeSection === 'users') {
+    fetchAllUsers();
+  }
+}, [activeSection]);
+
+
+const fetchAllUsers = async () => {
+  setLoadingUsers(true);
+  try {
+    // Fetch users and orders to calculate order counts and total spent
+    const [usersResponse, ordersResult] = await Promise.all([
+      fetch('http://localhost:5000/users'),
+      orderService.getAllOrders()
+    ]);
+    
+    if (!usersResponse.ok) {
+      throw new Error('Failed to fetch users');
+    }
+    
+    const usersResult = await usersResponse.json();
+    
+    if (ordersResult.success) {
+      const allOrders = ordersResult.data;
+      
+      // Calculate order counts and total spent for each user
+      const usersWithStats = usersResult.map(user => {
+        const userOrders = allOrders.filter(order => {
+          // Handle both populated and non-populated userId
+          const orderUserId = order.userId && typeof order.userId === 'object' 
+            ? order.userId._id 
+            : order.userId;
+          return orderUserId === user._id;
+        });
+        const totalSpent = userOrders.reduce((sum, order) => sum + order.totalAmount, 0);
+        
+        return {
+          ...user,
+          orderCount: userOrders.length,
+          totalSpent: totalSpent
+        };
+      });
+      
+      setUsers(usersWithStats);
+    }
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    setUsers([]); // Set empty array on error
+  } finally {
+    setLoadingUsers(false);
+  }
+};
+
+const fetchAllOrders = async () => {
+  setLoadingOrders(true);
+  try {
+    const result = await orderService.getAllOrders();
+    if (result.success) {
+      // Filter out admin orders - only show orders from regular users
+      const userOrders = result.data.filter(order => {
+        // Check if order has user info and user is not admin
+        if (order.userId && typeof order.userId === 'object') {
+          return order.userId.role !== 'admin';
+        }
+        return true; // Keep orders without user info (shouldn't happen but safe fallback)
+      });
+      setOrders(userOrders);
+    }
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+  } finally {
+    setLoadingOrders(false);
+  }
+};
+
+const handleStatusUpdate = async (orderId, newStatus) => {
+  try {
+    const result = await orderService.updateOrderStatus(orderId, newStatus);
+    if (result.success) {
+      // Update local state
+      setOrders(orders.map(order => 
+        order._id === orderId ? { ...order, status: newStatus } : order
+      ));
+      alert('Order status updated successfully');
+    } else {
+      alert('Failed to update order status');
+    }
+  } catch (error) {
+    console.error('Error updating order status:', error);
+    alert('Error updating order status');
+  }
+};
+
+const handleViewOrder = (order) => {
+  // Simple alert with order details (you can make this a modal later)
+  const orderDetails = `
+    Order ID: #${order._id.slice(-6)}
+    Customer: ${order.deliveryInfo.name}
+    Phone: ${order.deliveryInfo.phone}
+    Address: ${order.deliveryInfo.address}
+    Total: $${order.totalAmount}
+    Status: ${order.status}
+    Date: ${new Date(order.orderDate).toLocaleString()}
+    
+    Items:
+    ${order.items.map(item => `${item.quantity}x ${item.name} - $${item.price}`).join('\n')}
+  `;
+  alert(orderDetails);
+};
 
   return (
     <div>
@@ -22,7 +140,6 @@ const AdminDashboard = () => {
               <span className="notification-count">3</span>
             </div>
             <div className="admin-profile">
-              <img src="images/profile2.jpeg" alt="Admin Profile" className="profile-img" />
               <span>Admin Panel</span>
             </div>
             <Link to="/" className="btn">Back to Site</Link>
@@ -54,28 +171,10 @@ const AdminDashboard = () => {
                 <i className="fa-solid fa-utensils"></i> Products
               </button></li>
               <li><button
-                onClick={() => handleMenuClick('categories')}
-                className={`menu-link ${activeSection === 'categories' ? 'active' : ''}`}
-              >
-                <i className="fa-solid fa-tags"></i> Categories
-              </button></li>
-              <li><button
                 onClick={() => handleMenuClick('users')}
                 className={`menu-link ${activeSection === 'users' ? 'active' : ''}`}
               >
                 <i className="fa-solid fa-users"></i> Users
-              </button></li>
-              <li><button
-                onClick={() => handleMenuClick('reviews')}
-                className={`menu-link ${activeSection === 'reviews' ? 'active' : ''}`}
-              >
-                <i className="fa-solid fa-star"></i> Reviews
-              </button></li>
-              <li><button
-                onClick={() => handleMenuClick('settings')}
-                className={`menu-link ${activeSection === 'settings' ? 'active' : ''}`}
-              >
-                <i className="fa-solid fa-cog"></i> Settings
               </button></li>
             </ul>
           </aside>
@@ -138,112 +237,93 @@ const AdminDashboard = () => {
                   </div>
                 </div>
               </div>
-
-              <div className="recent-activity">
-                <h3>Recent Activity</h3>
-                <div className="activity-list">
-                  <div className="activity-item">
-                    <div className="activity-icon order">
-                      <i className="fa-solid fa-shopping-cart"></i>
-                    </div>
-                    <div className="activity-details">
-                      <p><strong>New order #12345</strong> from John Doe</p>
-                      <span className="activity-time">2 minutes ago</span>
-                    </div>
-                  </div>
-                  <div className="activity-item">
-                    <div className="activity-icon user">
-                      <i className="fa-solid fa-user-plus"></i>
-                    </div>
-                    <div className="activity-details">
-                      <p><strong>New user registered:</strong> Jane Smith</p>
-                      <span className="activity-time">15 minutes ago</span>
-                    </div>
-                  </div>
-                  <div className="activity-item">
-                    <div className="activity-icon review">
-                      <i className="fa-solid fa-star"></i>
-                    </div>
-                    <div className="activity-details">
-                      <p><strong>New 5-star review</strong> for Double Beef Burger</p>
-                      <span className="activity-time">1 hour ago</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </section>
 
             {/* Orders Section */}
             <section id="orders" className={`content-section ${activeSection === 'orders' ? 'active' : ''}`}>
               <div className="section-header">
                 <h2>Order Management</h2>
-                <div className="order-actions">
-                  <input type="search" placeholder="Search orders..." className="search-input" />
-                  <select className="status-filter">
-                    <option value="all">All Status</option>
-                    <option value="pending">Pending</option>
-                    <option value="preparing">Preparing</option>
-                    <option value="delivered">Delivered</option>
-                    <option value="cancelled">Cancelled</option>
-                  </select>
-                </div>
               </div>
 
-              <div className="orders-table">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Order ID</th>
-                      <th>Customer</th>
-                      <th>Items</th>
-                      <th>Total</th>
-                      <th>Status</th>
-                      <th>Date</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>#12345</td>
-                      <td>John Doe</td>
-                      <td>2x Double Beef Burger</td>
-                      <td>$19.34</td>
-                      <td><span className="status pending">Pending</span></td>
-                      <td>Dec 28, 2024</td>
-                      <td>
-                        <button className="action-btn view" title="View Details">
-                          <i className="fa-solid fa-eye"></i>
-                        </button>
-                        <button className="action-btn edit" title="Edit Order">
-                          <i className="fa-solid fa-edit"></i>
-                        </button>
-                        <button className="action-btn delete" title="Cancel Order">
-                          <i className="fa-solid fa-times"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>#12344</td>
-                      <td>Jane Smith</td>
-                      <td>1x Veggie Pizza</td>
-                      <td>$10.99</td>
-                      <td><span className="status preparing">Preparing</span></td>
-                      <td>Dec 28, 2024</td>
-                      <td>
-                        <button className="action-btn view" title="View Details">
-                          <i className="fa-solid fa-eye"></i>
-                        </button>
-                        <button className="action-btn edit" title="Edit Order">
-                          <i className="fa-solid fa-edit"></i>
-                        </button>
-                        <button className="action-btn delete" title="Cancel Order">
-                          <i className="fa-solid fa-times"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              {loadingOrders ? (
+                <div className="loading-message">
+                  <p>Loading orders...</p>
+                </div>
+              ) : orders.length === 0 ? (
+                <div className="no-orders-message">
+                  <p>No orders found.</p>
+                </div>
+              ) : (
+                <div className="orders-table">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Address</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {orders.map((order) => (
+                        <tr key={order._id}>
+                          <td>#{order._id.slice(-6)}</td>
+                          <td>
+                            {order.userId && order.userId.firstName ? 
+                              `${order.userId.firstName} ${order.userId.lastName}` : 
+                              order.deliveryInfo.name
+                            }
+                          </td>
+                          <td>
+                            {order.items.map((item, index) => (
+                              <div key={index}>
+                                {item.quantity}x {item.name}
+                              </div>
+                            ))}
+                          </td>
+                          <td>${order.totalAmount}</td>
+                          <td>
+                            <span className={`status ${order.status}`}>
+                              {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                            </span>
+                          </td>
+                          <td>
+                            <div className="delivery-address">
+                              <div><strong>{order.deliveryInfo.name}</strong></div>
+                              <div>{order.deliveryInfo.address}</div>
+                              <div>{order.deliveryInfo.phone}</div>
+                            </div>
+                          </td>
+                          <td>{new Date(order.orderDate).toLocaleDateString()}</td>
+                          <td>
+                            <button 
+                              className="action-btn view" 
+                              title="View Details"
+                              onClick={() => handleViewOrder(order)}
+                            >
+                              <i className="fa-solid fa-eye"></i>
+                            </button>
+                            <select 
+                              value={order.status}
+                              onChange={(e) => handleStatusUpdate(order._id, e.target.value)}
+                              className="status-select"
+                            >
+                              <option value="pending">Pending</option>
+                              <option value="preparing">Preparing</option>
+                              <option value="delivered">Delivered</option>
+                              <option value="cancelled">Cancelled</option>
+                            </select>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </section>
 
             {/* Products Section */}
@@ -263,90 +343,8 @@ const AdminDashboard = () => {
                       <p className="product-category">Food</p>
                       <div className="product-status available">Available</div>
                     </div>
-                    <div className="product-actions">
-                      <button className="action-btn edit" title="Edit Product">
-                        <i className="fa-solid fa-edit"></i>
-                      </button>
-                      <button className="action-btn delete" title="Delete Product">
-                        <i className="fa-solid fa-trash"></i>
-                      </button>
-                      <button className="action-btn toggle" title="Toggle Availability">
-                        <i className="fa-solid fa-toggle-on"></i>
-                      </button>
-                    </div>
                   </div>
                 ))}
-              </div>
-            </section>
-
-            {/* Categories Section */}
-            <section id="categories" className={`content-section ${activeSection === 'categories' ? 'active' : ''}`}>
-              <div className="section-header">
-                <h2>Category Management</h2>
-                <button className="btn add-category-btn">+ Add New Category</button>
-              </div>
-
-              <div className="categories-grid">
-                <div className="category-admin-card">
-                  <div className="category-info">
-                    <h4>Burgers</h4>
-                    <p>3 products</p>
-                    <div className="category-status active">Active</div>
-                  </div>
-                  <div className="category-actions">
-                    <button className="action-btn edit" title="Edit Category">
-                      <i className="fa-solid fa-edit"></i>
-                    </button>
-                    <button className="action-btn delete" title="Delete Category">
-                      <i className="fa-solid fa-trash"></i>
-                    </button>
-                  </div>
-                </div>
-                <div className="category-admin-card">
-                  <div className="category-info">
-                    <h4>Pizza</h4>
-                    <p>2 products</p>
-                    <div className="category-status active">Active</div>
-                  </div>
-                  <div className="category-actions">
-                    <button className="action-btn edit" title="Edit Category">
-                      <i className="fa-solid fa-edit"></i>
-                    </button>
-                    <button className="action-btn delete" title="Delete Category">
-                      <i className="fa-solid fa-trash"></i>
-                    </button>
-                  </div>
-                </div>
-                <div className="category-admin-card">
-                  <div className="category-info">
-                    <h4>Chicken</h4>
-                    <p>2 products</p>
-                    <div className="category-status active">Active</div>
-                  </div>
-                  <div className="category-actions">
-                    <button className="action-btn edit" title="Edit Category">
-                      <i className="fa-solid fa-edit"></i>
-                    </button>
-                    <button className="action-btn delete" title="Delete Category">
-                      <i className="fa-solid fa-trash"></i>
-                    </button>
-                  </div>
-                </div>
-                <div className="category-admin-card">
-                  <div className="category-info">
-                    <h4>Pasta</h4>
-                    <p>1 product</p>
-                    <div className="category-status active">Active</div>
-                  </div>
-                  <div className="category-actions">
-                    <button className="action-btn edit" title="Edit Category">
-                      <i className="fa-solid fa-edit"></i>
-                    </button>
-                    <button className="action-btn delete" title="Delete Category">
-                      <i className="fa-solid fa-trash"></i>
-                    </button>
-                  </div>
-                </div>
               </div>
             </section>
 
@@ -354,129 +352,54 @@ const AdminDashboard = () => {
             <section id="users" className={`content-section ${activeSection === 'users' ? 'active' : ''}`}>
               <div className="section-header">
                 <h2>User Management</h2>
-                <input type="search" placeholder="Search users..." className="search-input" />
               </div>
 
-              <div className="users-table">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>User ID</th>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Orders</th>
-                      <th>Total Spent</th>
-                      <th>Status</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>#001</td>
-                      <td>John Doe</td>
-                      <td>john.doe@email.com</td>
-                      <td>24</td>
-                      <td>$342.50</td>
-                      <td><span className="status active">Active</span></td>
-                      <td>
-                        <button className="action-btn view" title="View Profile">
-                          <i className="fa-solid fa-eye"></i>
-                        </button>
-                        <button className="action-btn edit" title="Edit User">
-                          <i className="fa-solid fa-edit"></i>
-                        </button>
-                        <button className="action-btn delete" title="Suspend User">
-                          <i className="fa-solid fa-ban"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
-
-            {/* Reviews Section */}
-            <section id="reviews" className={`content-section ${activeSection === 'reviews' ? 'active' : ''}`}>
-              <div className="section-header">
-                <h2>Customer Reviews</h2>
-                <div className="review-filters">
-                  <select className="rating-filter">
-                    <option value="all">All Ratings</option>
-                    <option value="5">5 Stars</option>
-                    <option value="4">4 Stars</option>
-                    <option value="3">3 Stars</option>
-                    <option value="2">2 Stars</option>
-                    <option value="1">1 Star</option>
-                  </select>
+              {loadingUsers ? (
+                <div className="loading-message">
+                  <p>Loading users...</p>
                 </div>
-              </div>
-
-              <div className="reviews-list">
-                <div className="review-card">
-                  <div className="review-header">
-                    <div className="reviewer-info">
-                      <img src="images/profile1.jpeg" alt="Reviewer" />
-                      <div>
-                        <h4>John Doe</h4>
-                        <div className="rating">
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                          <i className="fa-solid fa-star"></i>
-                        </div>
-                      </div>
-                    </div>
-                    <span className="review-date">Dec 28, 2024</span>
-                  </div>
-                  <div className="review-content">
-                    <h5>Double Beef Burger</h5>
-                    <p>Amazing burger! The meat was perfectly cooked and the ingredients were fresh. Delivery was quick too!</p>
-                  </div>
-                  <div className="review-actions">
-                    <button className="action-btn approve">
-                      <i className="fa-solid fa-check"></i> Approve
-                    </button>
-                    <button className="action-btn delete">
-                      <i className="fa-solid fa-trash"></i> Delete
-                    </button>
-                  </div>
+              ) : users.length === 0 ? (
+                <div className="no-users-message">
+                  <p>No users found.</p>
                 </div>
-              </div>
-            </section>
-
-            {/* Settings Section */}
-            <section id="settings" className={`content-section ${activeSection === 'settings' ? 'active' : ''}`}>
-              <div className="section-header">
-                <h2>System Settings</h2>
-              </div>
-
-              <div className="settings-tabs">
-                <button className="tab-btn active">General</button>
-                <button className="tab-btn">Delivery</button>
-                <button className="tab-btn">Payment</button>
-                <button className="tab-btn">Notifications</button>
-              </div>
-
-              <div className="settings-content">
-                <div id="general" className="tab-content active">
-                  <div className="settings-form">
-                    <div className="form-group">
-                      <label>Restaurant Name</label>
-                      <input type="text" defaultValue="FoodieGo" className="form-input" />
-                    </div>
-                    <div className="form-group">
-                      <label>Contact Email</label>
-                      <input type="email" defaultValue="support@foodiego.com" className="form-input" />
-                    </div>
-                    <div className="form-group">
-                      <label>Phone Number</label>
-                      <input type="tel" defaultValue="+92 300 123457" className="form-input" />
-                    </div>
-                    <button className="btn">Save Changes</button>
-                  </div>
+              ) : (
+                <div className="users-table">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Orders</th>
+                        <th>Total Spent</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {users.map((user) => (
+                        <tr key={user._id}>
+                          <td>#{user._id.slice(-6)}</td>
+                          <td>{user.firstName} {user.lastName}</td>
+                          <td>{user.email}</td>
+                          <td>{user.orderCount}</td>
+                          <td>${user.totalSpent.toFixed(2)}</td>
+                          <td>
+                            <button className="action-btn view" title="View Profile">
+                              <i className="fa-solid fa-eye"></i>
+                            </button>
+                            <button className="action-btn edit" title="Edit User">
+                              <i className="fa-solid fa-edit"></i>
+                            </button>
+                            <button className="action-btn delete" title="Delete User">
+                              <i className="fa-solid fa-trash"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-              </div>
+              )}
             </section>
           </div>
         </div>
@@ -485,4 +408,12 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+const ProtectedAdminDashboard = () => {
+  return (
+    <AdminProtectedRoute>
+      <AdminDashboard />
+    </AdminProtectedRoute>
+  );
+};
+
+export default ProtectedAdminDashboard;

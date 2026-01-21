@@ -65,7 +65,7 @@ router.get("/user", verifyToken, async (req, res) => {
 router.get("/admin", verifyToken, async (req, res) => {
   try {
     const orders = await Order.find()
-      .populate('userId', 'firstName lastName email') // Get user info
+      .populate('userId', 'firstName lastName email role') // Include role in populated user data
       .sort({ createdAt: -1 }) // Latest first
     
     res.json(orders)
