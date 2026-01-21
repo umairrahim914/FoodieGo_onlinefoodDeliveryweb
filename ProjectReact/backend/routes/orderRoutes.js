@@ -65,7 +65,12 @@ router.get("/user", verifyToken, async (req, res) => {
 router.get("/admin", verifyToken, async (req, res) => {
   try {
     const orders = await Order.find()
-      .populate('userId', 'firstName lastName email role') // Include role in populated user data
+      .populate({
+        path: 'userId',
+        select: 'firstName lastName email role',
+        // Don't fail if userId doesn't exist or can't be populated
+        options: { strictPopulate: false }
+      })
       .sort({ createdAt: -1 }) // Latest first
     
     res.json(orders)

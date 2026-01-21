@@ -6,11 +6,21 @@ import productsData from '../data/products.json';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
-  const [activeSection, setActiveSection] = useState('dashboard');
+  const [activeSection, setActiveSection] = useState('orders'); // Default to orders instead of dashboard
   const [orders, setOrders] = useState([]);
   const [loadingOrders, setLoadingOrders] = useState(false);
   const [users, setUsers] = useState([]);
   const [loadingUsers, setLoadingUsers] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [loadingProducts, setLoadingProducts] = useState(false);
+  const [showAddProductForm, setShowAddProductForm] = useState(false);
+  const [newProduct, setNewProduct] = useState({
+    name: '',
+    price: '',
+    description: '',
+    image: '',
+    category: 'Food'
+  });
 
   const handleMenuClick = (sectionId) => {
     setActiveSection(sectionId);
@@ -21,6 +31,8 @@ const AdminDashboard = () => {
     fetchAllOrders();
   } else if (activeSection === 'users') {
     fetchAllUsers();
+  } else if (activeSection === 'products') {
+    fetchAllProducts();
   }
 }, [activeSection]);
 
@@ -71,6 +83,105 @@ const fetchAllUsers = async () => {
   }
 };
 
+const fetchAllProducts = async () => {
+  setLoadingProducts(true);
+  try {
+    const response = await fetch('http://localhost:5000/products');
+    if (response.ok) {
+      const products = await response.json();
+      setProducts(products);
+    }
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    setProducts([]); // Set empty array on error
+  } finally {
+    setLoadingProducts(false);
+  }
+};
+
+const handleAddProduct = async (e) => {
+  e.preventDefault();
+  
+  try {
+    const response = await fetch('http://localhost:5000/products', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ...newProduct,
+        price: parseFloat(newProduct.price)
+      })
+    });
+    
+    if (response.ok) {
+      const addedProduct = await response.json();
+      setProducts([...products, addedProduct]);
+      setShowAddProductForm(false);
+      setNewProduct({
+        name: '',
+        price: '',
+        description: '',
+        image: '',
+        category: 'Food'
+      });
+      alert('Product added successfully!');
+    } else {
+      alert('Failed to add product');
+    }
+  } catch (error) {
+    console.error('Error adding product:', error);
+    alert('Error adding product');
+  }
+};
+
+const handleProductInputChange = (e) => {
+  setNewProduct({
+    ...newProduct,
+    [e.target.name]: e.target.value
+  });
+};
+
+const handleDeleteProduct = async (productId) => {
+  if (window.confirm('Are you sure you want to delete this product?')) {
+    try {
+      const response = await fetch(`http://localhost:5000/products/${productId}`, {
+        method: 'DELETE'
+      });
+      
+      if (response.ok) {
+        setProducts(products.filter(product => product._id !== productId));
+        alert('Product deleted successfully!');
+      } else {
+        alert('Failed to delete product');
+      }
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      alert('Error deleting product');
+    }
+  }
+};
+
+const handleDeleteUser = async (userId) => {
+  if (window.confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
+    try {
+      const response = await fetch(`http://localhost:5000/users/${userId}`, {
+        method: 'DELETE'
+      });
+      
+      if (response.ok) {
+        setUsers(users.filter(user => user._id !== userId));
+        alert('User deleted successfully!');
+      } else {
+        alert('Failed to delete user');
+      }
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      alert('Error deleting user');
+    }
+  }
+};
+
 const fetchAllOrders = async () => {
   setLoadingOrders(true);
   try {
@@ -78,11 +189,12 @@ const fetchAllOrders = async () => {
     if (result.success) {
       // Filter out admin orders - only show orders from regular users
       const userOrders = result.data.filter(order => {
-        // Check if order has user info and user is not admin
-        if (order.userId && typeof order.userId === 'object') {
+        // If order has user info, check if user is not admin
+        if (order.userId && typeof order.userId === 'object' && order.userId.role) {
           return order.userId.role !== 'admin';
         }
-        return true; // Keep orders without user info (shouldn't happen but safe fallback)
+        // If no user info or role, assume it's a regular user order (keep it)
+        return true;
       });
       setOrders(userOrders);
     }
@@ -135,10 +247,6 @@ const handleViewOrder = (order) => {
         <nav className="navbar flex between wrapper">
           <Link to="/" className="logo">FoodieGo. <span className="admin-badge">Admin</span></Link>
           <div className="admin-info flex gap-2">
-            <div className="notifications">
-              <i className="fa-solid fa-bell"></i>
-              <span className="notification-count">3</span>
-            </div>
             <div className="admin-profile">
               <span>Admin Panel</span>
             </div>
@@ -152,12 +260,6 @@ const handleViewOrder = (order) => {
           {/* Sidebar */}
           <aside className="admin-sidebar">
             <ul className="admin-menu">
-              <li><button
-                onClick={() => handleMenuClick('dashboard')}
-                className={`menu-link ${activeSection === 'dashboard' ? 'active' : ''}`}
-              >
-                <i className="fa-solid fa-chart-pie"></i> Dashboard
-              </button></li>
               <li><button
                 onClick={() => handleMenuClick('orders')}
                 className={`menu-link ${activeSection === 'orders' ? 'active' : ''}`}
@@ -181,64 +283,6 @@ const handleViewOrder = (order) => {
 
           {/* Main Content */}
           <div className="admin-content">
-            {/* Dashboard Section */}
-            <section id="dashboard" className={`content-section ${activeSection === 'dashboard' ? 'active' : ''}`}>
-              <div className="section-header">
-                <h2>Dashboard Overview</h2>
-                <div className="date-filter">
-                  <select id="dateRange">
-                    <option value="today">Today</option>
-                    <option value="week">This Week</option>
-                    <option value="month" selected>This Month</option>
-                    <option value="year">This Year</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="admin-stats-grid">
-                <div className="admin-stat-card revenue">
-                  <div className="stat-icon">
-                    <i className="fa-solid fa-dollar-sign"></i>
-                  </div>
-                  <div className="stat-info">
-                    <h3>$12,450</h3>
-                    <p>Total Revenue</p>
-                    <span className="trend positive">+12.5%</span>
-                  </div>
-                </div>
-                <div className="admin-stat-card orders">
-                  <div className="stat-icon">
-                    <i className="fa-solid fa-shopping-bag"></i>
-                  </div>
-                  <div className="stat-info">
-                    <h3>342</h3>
-                    <p>Total Orders</p>
-                    <span className="trend positive">+8.2%</span>
-                  </div>
-                </div>
-                <div className="admin-stat-card users">
-                  <div className="stat-icon">
-                    <i className="fa-solid fa-users"></i>
-                  </div>
-                  <div className="stat-info">
-                    <h3>1,248</h3>
-                    <p>Active Users</p>
-                    <span className="trend positive">+15.3%</span>
-                  </div>
-                </div>
-                <div className="admin-stat-card products">
-                  <div className="stat-icon">
-                    <i className="fa-solid fa-utensils"></i>
-                  </div>
-                  <div className="stat-info">
-                    <h3>8</h3>
-                    <p>Total Products</p>
-                    <span className="trend neutral">+2.1%</span>
-                  </div>
-                </div>
-              </div>
-            </section>
-
             {/* Orders Section */}
             <section id="orders" className={`content-section ${activeSection === 'orders' ? 'active' : ''}`}>
               <div className="section-header">
@@ -330,22 +374,136 @@ const handleViewOrder = (order) => {
             <section id="products" className={`content-section ${activeSection === 'products' ? 'active' : ''}`}>
               <div className="section-header">
                 <h2>Product Management</h2>
-                <button className="btn add-product-btn">+ Add New Product</button>
+                <button 
+                  className="btn add-product-btn"
+                  onClick={() => setShowAddProductForm(true)}
+                >
+                  + Add New Product
+                </button>
               </div>
 
-              <div className="products-grid">
-                {productsData.map((product) => (
-                  <div key={product.id} className="product-admin-card">
-                    <img src={product.image} alt={product.name} />
-                    <div className="product-info">
-                      <h4>{product.name}</h4>
-                      <p className="product-price">{product.price}</p>
-                      <p className="product-category">Food</p>
-                      <div className="product-status available">Available</div>
+              {/* Add Product Form Modal */}
+              {showAddProductForm && (
+                <div className="modal-overlay">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h3>Add New Product</h3>
+                      <button 
+                        className="close-btn"
+                        onClick={() => setShowAddProductForm(false)}
+                      >
+                        ×
+                      </button>
                     </div>
+                    <form onSubmit={handleAddProduct} className="product-form">
+                      <div className="form-group">
+                        <label>Product Name</label>
+                        <input
+                          type="text"
+                          name="name"
+                          value={newProduct.name}
+                          onChange={handleProductInputChange}
+                          required
+                          placeholder="Enter product name"
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label>Price ($)</label>
+                        <input
+                          type="number"
+                          name="price"
+                          value={newProduct.price}
+                          onChange={handleProductInputChange}
+                          required
+                          step="0.01"
+                          placeholder="Enter price"
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label>Description</label>
+                        <textarea
+                          name="description"
+                          value={newProduct.description}
+                          onChange={handleProductInputChange}
+                          required
+                          placeholder="Enter product description"
+                          rows="3"
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label>Image URL</label>
+                        <input
+                          type="text"
+                          name="image"
+                          value={newProduct.image}
+                          onChange={handleProductInputChange}
+                          required
+                          placeholder="Enter image URL (e.g., images/product.png)"
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label>Category</label>
+                        <select
+                          name="category"
+                          value={newProduct.category}
+                          onChange={handleProductInputChange}
+                        >
+                          <option value="Food">Food</option>
+                          <option value="Beverage">Beverage</option>
+                          <option value="Dessert">Dessert</option>
+                        </select>
+                      </div>
+                      <div className="form-actions">
+                        <button 
+                          type="button" 
+                          className="btn-secondary"
+                          onClick={() => setShowAddProductForm(false)}
+                        >
+                          Cancel
+                        </button>
+                        <button type="submit" className="btn-primary">
+                          Add Product
+                        </button>
+                      </div>
+                    </form>
                   </div>
-                ))}
-              </div>
+                </div>
+              )}
+
+              {loadingProducts ? (
+                <div className="loading-message">
+                  <p>Loading products...</p>
+                </div>
+              ) : products.length === 0 ? (
+                <div className="no-products-message">
+                  <p>No products found. Add your first product!</p>
+                </div>
+              ) : (
+                <div className="products-grid">
+                  {products.map((product) => (
+                    <div key={product._id} className="product-admin-card">
+                      <img src={product.image} alt={product.name} />
+                      <div className="product-info">
+                        <h4>{product.name}</h4>
+                        <p className="product-price">${product.price}</p>
+                        <p className="product-category">{product.category}</p>
+                        <div className="product-status available">
+                          {product.available ? 'Available' : 'Unavailable'}
+                        </div>
+                      </div>
+                      <div className="product-actions">
+                        <button 
+                          className="action-btn delete" 
+                          title="Delete Product"
+                          onClick={() => handleDeleteProduct(product._id)}
+                        >
+                          <i className="fa-solid fa-trash"></i>
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </section>
 
             {/* Users Section */}
@@ -384,13 +542,11 @@ const handleViewOrder = (order) => {
                           <td>{user.orderCount}</td>
                           <td>${user.totalSpent.toFixed(2)}</td>
                           <td>
-                            <button className="action-btn view" title="View Profile">
-                              <i className="fa-solid fa-eye"></i>
-                            </button>
-                            <button className="action-btn edit" title="Edit User">
-                              <i className="fa-solid fa-edit"></i>
-                            </button>
-                            <button className="action-btn delete" title="Delete User">
+                            <button 
+                              className="action-btn delete" 
+                              title="Delete User"
+                              onClick={() => handleDeleteUser(user._id)}
+                            >
                               <i className="fa-solid fa-trash"></i>
                             </button>
                           </td>

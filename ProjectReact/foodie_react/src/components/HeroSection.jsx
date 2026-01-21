@@ -15,18 +15,6 @@ const HeroSection = () => {
             </p>
             <div className="flex gap-2 items-center mt-2">
               <a href="/menu" className="btn-custom no-underline">Order now</a>
-              <a href="#" className="social-icon no-underline">
-                <i className="fa-brands fa-twitter"></i>
-              </a>
-              <a href="#" className="social-icon no-underline">
-                <i className="fa-brands fa-instagram"></i>
-              </a>
-              <a href="#" className="social-icon no-underline">
-                <i className="fa-brands fa-facebook-f"></i>
-              </a>
-              <a href="#" className="social-icon no-underline">
-                <i className="fa-brands fa-google-plus-g"></i>
-              </a>
             </div>
           </div>
           <div className="image-container flex-1 min-w-[300px]">

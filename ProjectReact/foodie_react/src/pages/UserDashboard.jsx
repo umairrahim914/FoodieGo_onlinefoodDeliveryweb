@@ -4,7 +4,7 @@ import orderService from '../services/orderService';
 import './UserDashboard.css';
 
 const UserDashboard = () => {
-  const [activeSection, setActiveSection] = useState('overview');
+  const [activeSection, setActiveSection] = useState('orders'); // Default to orders instead of overview
   const [orders, setOrders] = useState([]);
   const [loadingOrders, setLoadingOrders] = useState(false);
 
@@ -44,8 +44,7 @@ const UserDashboard = () => {
           <Link to="/" className="logo">FoodieGo.</Link>
           <div className="user-info flex gap-2">
             <div className="user-profile">
-              <img src="images/profile1.jpeg" alt="User Profile" className="profile-img" />
-              <span>Welcome, John!</span>
+              <span>Welcome, User!</span>
             </div>
             <Link to="/" className="btn">Back to Home</Link>
           </div>
@@ -58,12 +57,6 @@ const UserDashboard = () => {
           <aside className="sidebar">
             <ul className="sidebar-menu">
               <li><button
-                onClick={() => handleMenuClick('overview')}
-                className={`menu-link ${activeSection === 'overview' ? 'active' : ''}`}
-              >
-                <i className="fa-solid fa-chart-line"></i> Overview
-              </button></li>
-              <li><button
                 onClick={() => handleMenuClick('orders')}
                 className={`menu-link ${activeSection === 'orders' ? 'active' : ''}`}
               >
@@ -74,22 +67,6 @@ const UserDashboard = () => {
 
           {/* Main Content */}
           <div className="dashboard-content">
-            {/* Overview Section */}
-            <section id="overview" className={`content-section ${activeSection === 'overview' ? 'active' : ''}`}>
-              <h2>Dashboard Overview</h2>
-              <div className="stats-grid">
-                <div className="stat-card">
-                  <div className="stat-icon">
-                    <i className="fa-solid fa-shopping-bag"></i>
-                  </div>
-                  <div className="stat-info">
-                    <h3>24</h3>
-                    <p>Total Orders</p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
             {/* Orders Section */}
             {/* Orders Section */}
             <section id="orders" className={`content-section ${activeSection === 'orders' ? 'active' : ''}`}>

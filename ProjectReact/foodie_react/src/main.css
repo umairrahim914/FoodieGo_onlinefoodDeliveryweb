@@ -804,3 +804,34 @@ html {
 .add-to-bucket:hover {
   background: #b30022;
 }
+/* Close button specific styling */
+.btn-container .close-btn {
+  background: #6c757d !important;
+  color: white !important;
+  border: 2px solid #6c757d;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-container .close-btn:hover {
+  background: #5a6268 !important;
+  color: white !important;
+  border-color: #5a6268;
+}
+
+/* Ensure both buttons have equal width */
+.btn-container {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.btn-container .btn {
+  flex: 1;
+  text-align: center;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  border: 2px solid transparent;
+}
