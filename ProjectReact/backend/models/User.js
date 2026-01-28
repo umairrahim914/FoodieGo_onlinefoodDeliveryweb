@@ -12,24 +12,24 @@ const userSchema = new mongoose.Schema({
   username: { 
     type: String, 
     required: true, 
-    unique: true  // No duplicate usernames
+    unique: true  
   },
   email: { 
     type: String, 
     required: true, 
-    unique: true  // No duplicate emails
+    unique: true  
   },
   password: { 
     type: String, 
     required: true 
   },
-  phone: String,  // Optional field
+  phone: String,  
   role: { 
     type: String, 
-    default: 'user'  // Default role is 'user', can be 'admin'
+    default: 'user'  
   }
 }, {
-  timestamps: true  // Automatically adds createdAt and updatedAt fields
+  timestamps: true  
 })
 
 module.exports = mongoose.model("User", userSchema)

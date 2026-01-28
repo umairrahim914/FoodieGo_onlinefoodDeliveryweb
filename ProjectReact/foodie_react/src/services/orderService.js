@@ -2,7 +2,6 @@ import api from '../api/axios';
 
 const orderService = {
   
-  // PLACE ORDER: Create new order
   placeOrder: async (orderData) => {
     try {
       const response = await api.post('/orders', orderData);
@@ -19,7 +18,6 @@ const orderService = {
     }
   },
 
-  // GET USER ORDERS: Get orders for current user
   getUserOrders: async () => {
     try {
       const response = await api.get('/orders/user');
@@ -35,7 +33,6 @@ const orderService = {
     }
   },
 
-  // GET ALL ORDERS: For admin
   getAllOrders: async () => {
     try {
       const response = await api.get('/orders/admin');
@@ -51,7 +48,6 @@ const orderService = {
     }
   },
 
-  // UPDATE ORDER STATUS: For admin
   updateOrderStatus: async (orderId, status) => {
     try {
       const response = await api.put(`/orders/${orderId}/status`, { status });

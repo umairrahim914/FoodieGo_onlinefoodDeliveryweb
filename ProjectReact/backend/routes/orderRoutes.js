@@ -4,9 +4,8 @@ const jwt = require("jsonwebtoken");
 
 const router = express.Router()
 
-// MIDDLEWARE: Verify JWT token
 const verifyToken = (req, res, next) => {
-  const token = req.headers.authorization?.split(' ')[1] // Get token from "Bearer TOKEN"
+  const token = req.headers.authorization?.split(' ')[1] 
   
   if (!token) {
     return res.status(401).json({ message: "No token provided" })
@@ -14,28 +13,27 @@ const verifyToken = (req, res, next) => {
   
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET || "your-secret-key")
-    req.userId = decoded.userId // Add userId to request
+    req.userId = decoded.userId 
     next()
   } catch (error) {
     return res.status(401).json({ message: "Invalid token" })
   }
 }
 
-// CREATE ORDER: Save order to database
 router.post("/", verifyToken, async (req, res) => {
   try {
     const { items, deliveryInfo, totalAmount } = req.body
     
-    // Create new order
+
     const order = new Order({
-      userId: req.userId, // From token
+      userId: req.userId, 
       items,
       deliveryInfo,
       totalAmount,
       status: 'pending'
     })
     
-    // Save to database
+   
     const savedOrder = await order.save()
     
     res.status(201).json({
@@ -48,11 +46,11 @@ router.post("/", verifyToken, async (req, res) => {
   }
 })
 
-// GET USER ORDERS: Get orders for logged-in user
+
 router.get("/user", verifyToken, async (req, res) => {
   try {
     const orders = await Order.find({ userId: req.userId })
-      .sort({ createdAt: -1 }) // Latest first
+      .sort({ createdAt: -1 }) 
     
     res.json(orders)
     
@@ -60,6 +58,7 @@ router.get("/user", verifyToken, async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message })
   }
 })
+
 
 // GET ALL ORDERS: For admin (get all orders from all users)
 router.get("/admin", verifyToken, async (req, res) => {
@@ -74,6 +73,27 @@ router.get("/admin", verifyToken, async (req, res) => {
       .sort({ createdAt: -1 }) // Latest first
     
     res.json(orders)
+    
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message })
+  }
+})
+
+// GET ORDER BY ID: Get specific order details
+router.get("/:id", verifyToken, async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id)
+      .populate({
+        path: 'userId',
+        select: 'firstName lastName email role',
+        options: { strictPopulate: false }
+      })
+    
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" })
+    }
+    
+    res.json(order)
     
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message })

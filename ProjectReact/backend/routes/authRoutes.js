@@ -5,13 +5,11 @@ const User = require("../models/User");
 
 const router = express.Router()
 
-// REGISTER ROUTE: Creates new user account
 router.post("/register", async (req, res) => {
   try {
-    // EXTRACT: Data from request body
+    
     const { firstName, lastName, username, email, password } = req.body
 
-    // CHECK: If user already exists with same email or username
     const existingUser = await User.findOne({ 
       $or: [{ email }, { username }] 
     })
@@ -22,30 +20,28 @@ router.post("/register", async (req, res) => {
       })
     }
 
-    // ENCRYPT: Password before saving (security)
     const saltRounds = 10
     const hashedPassword = await bcrypt.hash(password, saltRounds)
 
-    // CREATE: New user object
+    
     const user = new User({
       firstName,
       lastName,
       username,
       email,
-      password: hashedPassword  // Store encrypted password
+      password: hashedPassword  
     })
 
-    // SAVE: User to MongoDB database
     const savedUser = await user.save()
 
-    // CREATE: JWT token for authentication
+    //jwt
     const token = jwt.sign(
       { userId: savedUser._id, email: savedUser.email },
       process.env.JWT_SECRET || "your-secret-key",
-      { expiresIn: "24h" }  // Token expires in 24 hours
+      { expiresIn: "24h" }  
     )
 
-    // SEND: Success response (don't send password back)
+    
     res.status(201).json({
       message: "User registered successfully",
       token,
@@ -63,13 +59,12 @@ router.post("/register", async (req, res) => {
   }
 })
 
-// LOGIN ROUTE: Authenticates existing user
+
 router.post("/login", async (req, res) => {
   try {
-    // EXTRACT: Login credentials
+   
     const { email, password } = req.body
 
-    // FIND: User by email or username
     const user = await User.findOne({ 
       $or: [{ email }, { username: email }] 
     })
@@ -78,21 +73,20 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" })
     }
 
-    // VERIFY: Password matches stored hash
     const isPasswordValid = await bcrypt.compare(password, user.password)
     
     if (!isPasswordValid) {
       return res.status(400).json({ message: "Invalid credentials" })
     }
 
-    // CREATE: JWT token for authenticated user
+
     const token = jwt.sign(
       { userId: user._id, email: user.email },
       process.env.JWT_SECRET || "your-secret-key",
       { expiresIn: "24h" }
     )
 
-    // SEND: Success response with token
+    
     res.json({
       message: "Login successful",
       token,
@@ -102,7 +96,7 @@ router.post("/login", async (req, res) => {
         lastName: user.lastName,
         username: user.username,
         email: user.email,
-        role: user.role  // Include role in response
+        role: user.role  
       }
     })
 
@@ -111,13 +105,10 @@ router.post("/login", async (req, res) => {
   }
 })
 
-// CREATE ADMIN ROUTE: Creates admin user (for setup purposes)
 router.post("/create-admin", async (req, res) => {
   try {
-    // EXTRACT: Data from request body
+ 
     const { firstName, lastName, username, email, password } = req.body
-
-    // CHECK: If user already exists with same email or username
     const existingUser = await User.findOne({ 
       $or: [{ email }, { username }] 
     })
@@ -128,24 +119,21 @@ router.post("/create-admin", async (req, res) => {
       })
     }
 
-    // ENCRYPT: Password before saving (security)
     const saltRounds = 10
     const hashedPassword = await bcrypt.hash(password, saltRounds)
 
-    // CREATE: New admin user object
     const adminUser = new User({
       firstName,
       lastName,
       username,
       email,
       password: hashedPassword,
-      role: 'admin'  // Set role as admin
+      role: 'admin'  
     })
 
-    // SAVE: Admin user to MongoDB database
+    
     const savedAdmin = await adminUser.save()
 
-    // SEND: Success response (don't send password back)
     res.status(201).json({
       message: "Admin user created successfully",
       user: {

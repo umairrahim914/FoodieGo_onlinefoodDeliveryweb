@@ -12,13 +12,12 @@ const orderRoutes = require("./routes/orderRoutes");
 
 const app = express();
 
-// middleware. Parse JSON and enable CORS
+
 app.use(express.json());
 app.use(cors());  // Allows frontend to make requests
 
 connectDB();
 
-//  Test if server is running
 app.get("/", (req, res) => {
   res.send("FoodieGo Server is running");
 })

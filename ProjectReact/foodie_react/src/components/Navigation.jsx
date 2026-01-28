@@ -94,6 +94,18 @@ const Navigation = () => {
               User Dashboard &nbsp; <i className="fa-solid fa-user"></i>
             </Link>
           </li>
+
+            <li>
+            <Link
+              to=""
+              className="btn-custom no-underline mb-2"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Logout &nbsp; <i className="fa-solid fa-user"></i>
+            </Link>
+          </li>
+
+
           <li>
             <Link
               to="/admin-dashboard"

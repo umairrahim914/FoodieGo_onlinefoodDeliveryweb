@@ -16,13 +16,20 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (product) => {
     setCartItems(prevItems => {
-      const existingItem = prevItems.find(item => item.id === product.id);
+      // Handle both database products (_id) and JSON products (id)
+      const productId = product._id || product.id;
+      const existingItem = prevItems.find(item => {
+        const itemId = item._id || item.id;
+        return itemId === productId;
+      });
+      
       if (existingItem) {
-        return prevItems.map(item =>
-          item.id === product.id
+        return prevItems.map(item => {
+          const itemId = item._id || item.id;
+          return itemId === productId
             ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
+            : item;
+        });
       }
       return [...prevItems, { ...product, quantity: 1 }];
     });
@@ -32,7 +39,10 @@ export const CartProvider = ({ children }) => {
   
 
   const removeFromCart = (productId) => {
-    setCartItems(prevItems => prevItems.filter(item => item.id !== productId));
+    setCartItems(prevItems => prevItems.filter(item => {
+      const itemId = item._id || item.id;
+      return itemId !== productId;
+    }));
   };
 
   const updateQuantity = (productId, newQuantity) => {
@@ -41,17 +51,25 @@ export const CartProvider = ({ children }) => {
       return;
     }
     setCartItems(prevItems =>
-      prevItems.map(item =>
-        item.id === productId
+      prevItems.map(item => {
+        const itemId = item._id || item.id;
+        return itemId === productId
           ? { ...item, quantity: newQuantity }
-          : item
-      )
+          : item;
+      })
     );
   };
 
   const getTotalPrice = () => {
     return cartItems.reduce((total, item) => {
-      const price = parseFloat(item.price.replace('$', ''));
+      // Handle both string prices ("$9.67", "Rs 500", "PKR 500") and number prices (500)
+      let price;
+      if (typeof item.price === 'string') {
+        // Remove $, PKR, Rs symbols and spaces
+        price = parseFloat(item.price.replace(/[$PKRRs\s]/g, ''));
+      } else {
+        price = parseFloat(item.price);
+      }
       return total + (price * item.quantity);
     }, 0).toFixed(2);
   };

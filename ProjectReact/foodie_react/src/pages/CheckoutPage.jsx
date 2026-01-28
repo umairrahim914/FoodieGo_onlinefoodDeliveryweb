@@ -42,7 +42,7 @@ const CheckoutPage = () => {
       items: cartItems.map(item => ({
         productId: item.id,
         name: item.name,
-        price: parseFloat(item.price.replace('$', '')),
+        price: parseFloat(item.price.toString().replace(/[$PKRRs\s]/g, '')),
         quantity: item.quantity,
         image: item.image
       })),
@@ -123,14 +123,14 @@ const CheckoutPage = () => {
                 <div className="item-details">
                   <h3>{item.name}</h3>
                   <p>Quantity: {item.quantity}</p>
-                  <p className="item-price">${(item.price * item.quantity).toFixed(2)}</p>
+                  <p className="item-price">Rs {(parseFloat(item.price.toString().replace(/[$PKRRs\s]/g, '')) * item.quantity).toFixed(2)}</p>
                 </div>
               </div>
             ))}
           </div>
           
           <div className="order-total">
-            <h3>Total: ${getTotalPrice()}</h3>
+            <h3>Total: PKR {getTotalPrice()}</h3>
           </div>
         </div>
 
@@ -158,7 +158,7 @@ const CheckoutPage = () => {
             disabled={loading}
             className="btn-primary"
           >
-            {loading ? 'Processing...' : `Place Order - $${getTotalPrice()}`}
+            {loading ? 'Processing...' : `Place Order - PKR ${getTotalPrice()}`}
           </button>
         </div>
       </div>

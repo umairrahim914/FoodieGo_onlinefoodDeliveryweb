@@ -1,22 +1,22 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import authService from '../services/authService'; // IMPORT: Auth service
+import authService from '../services/authService'; 
 import './LoginSignup.css';
 
 const LoginSignup = () => {
-  // STATE: Form visibility
+  
   const [isLogin, setIsLogin] = useState(true);
+  const [isLogout, setIsLogout] = useState(false);
   const navigate = useNavigate();
   const loginFormRef = useRef(null);
   const registerFormRef = useRef(null);
 
-  // STATE: Login form data
+  
   const [loginData, setLoginData] = useState({
     email: '',
     password: ''
   });
 
-  // STATE: Signup form data
   const [signupData, setSignupData] = useState({
     firstName: '',
     lastName: '',
@@ -26,16 +26,16 @@ const LoginSignup = () => {
     confirmPassword: ''
   });
 
-  // STATE: Loading indicator
+  
   const [isLoading, setIsLoading] = useState(false);
 
-  // FUNCTION: Block home access without login
+  
   const handleHomeClick = (e) => {
     e.preventDefault();
     alert('Please login first!');
   };
 
-  // FUNCTION: Switch to login form
+ 
   const login = () => {
     setIsLogin(true);
     if (loginFormRef.current && registerFormRef.current) {
@@ -44,7 +44,15 @@ const LoginSignup = () => {
     }
   };
 
-  // FUNCTION: Switch to register form
+  const logout = () => {
+    setIsLogout(true);
+    if (loginFormRef.current && registerFormRef.current) {
+      loginFormRef.current.style.left = "4px";
+      registerFormRef.current.style.right = "-520px";
+    }
+  };
+
+  
   const register = () => {
     setIsLogin(false);
     if (loginFormRef.current && registerFormRef.current) {

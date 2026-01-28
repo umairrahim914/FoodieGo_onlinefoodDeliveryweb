@@ -5,6 +5,7 @@ const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
 
   const handleAddToCart = () => {
+    console.log('Adding product to cart:', product);
     addToCart(product);
   };
 
@@ -21,7 +22,7 @@ const ProductCard = ({ product }) => {
         {product.name}
       </h4>
       <h4 className="price">
-        {product.price}
+        Rs {product.price}
       </h4>
       <div className="text-center">
         <button

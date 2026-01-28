@@ -15,6 +15,7 @@ const HeroSection = () => {
             </p>
             <div className="flex gap-2 items-center mt-2">
               <a href="/menu" className="btn-custom no-underline">Order now</a>
+              <a href="/login" className="btn-custom no-underline">Logout {onClick =>{Logout()}}  </a>
             </div>
           </div>
           <div className="image-container flex-1 min-w-[300px]">

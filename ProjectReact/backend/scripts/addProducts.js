@@ -2,10 +2,8 @@ const mongoose = require('mongoose');
 const Product = require('../models/Product');
 require('dotenv').config();
 
-// Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/foodiego');
 
-// Products data
 const products = [
   {
     name: "Double Beef Burger",
@@ -65,18 +63,16 @@ const products = [
   }
 ];
 
-// Insert products
 const insertProducts = async () => {
   try {
-    // Clear existing products (optional)
+    
     await Product.deleteMany({});
     console.log('Cleared existing products');
 
-    // Insert new products
+
     const result = await Product.insertMany(products);
     console.log(`${result.length} products added successfully!`);
     
-    // Display added products
     result.forEach(product => {
       console.log(`- ${product.name}: $${product.price}`);
     });

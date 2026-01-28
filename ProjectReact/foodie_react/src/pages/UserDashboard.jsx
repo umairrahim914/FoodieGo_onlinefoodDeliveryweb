@@ -99,7 +99,7 @@ const UserDashboard = () => {
                             <div className="item-details">
                               <h4>{item.name}</h4>
                               <p>Quantity: {item.quantity}</p>
-                              <p className="item-price">${item.price}</p>
+                              <p className="item-price">PKR {item.price}</p>
                             </div>
                           </div>
                         ))}
@@ -110,7 +110,7 @@ const UserDashboard = () => {
                           <span className="order-date">
                             {new Date(order.orderDate).toLocaleDateString()}
                           </span>
-                          <span className="order-total">${order.totalAmount}</span>
+                          <span className="order-total">PKR {order.totalAmount}</span>
                         </div>
                         <div className="delivery-info">
                           <p><strong>Deliver to:</strong> {order.deliveryInfo.name}</p>

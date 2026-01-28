@@ -16,15 +16,17 @@ const CartSidebar = () => {
             <p className="text-lg">Your cart is empty</p>
           </div>
         ) : (
-          cartItems.map((item) => (
-            <CartItem key={item.id} item={item} />
-          ))
+          cartItems.map((item) => {
+            // Handle both database products (_id) and JSON products (id)
+            const itemKey = item._id || item.id;
+            return <CartItem key={itemKey} item={item} />;
+          })
         )}
       </div>
 
       <div className="total-container">
         <h4>Total: </h4>
-        <h4 className="cart-total">${getTotalPrice()}</h4>
+        <h4 className="cart-total">Rs {getTotalPrice()}</h4>
       </div>
       
       <div className="btn-container flex gap-2">

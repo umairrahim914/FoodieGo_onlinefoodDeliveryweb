@@ -230,12 +230,12 @@ const handleViewOrder = (order) => {
     Customer: ${order.deliveryInfo.name}
     Phone: ${order.deliveryInfo.phone}
     Address: ${order.deliveryInfo.address}
-    Total: $${order.totalAmount}
+    Total: PKR ${order.totalAmount}
     Status: ${order.status}
     Date: ${new Date(order.orderDate).toLocaleString()}
     
     Items:
-    ${order.items.map(item => `${item.quantity}x ${item.name} - $${item.price}`).join('\n')}
+    ${order.items.map(item => `${item.quantity}x ${item.name} - PKR ${item.price}`).join('\n')}
   `;
   alert(orderDetails);
 };
@@ -329,7 +329,7 @@ const handleViewOrder = (order) => {
                               </div>
                             ))}
                           </td>
-                          <td>${order.totalAmount}</td>
+                          <td>PKR {order.totalAmount}</td>
                           <td>
                             <span className={`status ${order.status}`}>
                               {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
@@ -408,7 +408,7 @@ const handleViewOrder = (order) => {
                         />
                       </div>
                       <div className="form-group">
-                        <label>Price ($)</label>
+                        <label>Price (PKR)</label>
                         <input
                           type="number"
                           name="price"
@@ -485,7 +485,7 @@ const handleViewOrder = (order) => {
                       <img src={product.image} alt={product.name} />
                       <div className="product-info">
                         <h4>{product.name}</h4>
-                        <p className="product-price">${product.price}</p>
+                        <p className="product-price">PKR {product.price}</p>
                         <p className="product-category">{product.category}</p>
                         <div className="product-status available">
                           {product.available ? 'Available' : 'Unavailable'}
@@ -540,7 +540,7 @@ const handleViewOrder = (order) => {
                           <td>{user.firstName} {user.lastName}</td>
                           <td>{user.email}</td>
                           <td>{user.orderCount}</td>
-                          <td>${user.totalSpent.toFixed(2)}</td>
+                          <td>PKR {user.totalSpent.toFixed(2)}</td>
                           <td>
                             <button 
                               className="action-btn delete" 
